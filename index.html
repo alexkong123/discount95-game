@@ -3,134 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>95数背数小游戏</title>
+    <title>95数背数小游戏 - 优化版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Microsoft JhengHei', sans-serif;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
         }
         body {
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .container {
             width: 100%;
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
         h1 {
             margin-top: 0;
-            font-size: 2.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 2.6rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
         }
         .screen {
             display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .active {
             display: block;
         }
         .btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            border: none;
             color: white;
-            padding: 15px 25px;
-            margin: 10px;
+            padding: 16px 30px;
+            margin: 12px;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            width: 150px;
+            width: 180px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn:active {
+            transform: translateY(0);
         }
         .btn-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 20px;
+        }
+        .question-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
         }
         .question {
-            font-size: 5rem;
+            font-size: 5.5rem;
             font-weight: bold;
-            margin: 30px 0;
+            margin: 20px 0;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
         }
         .answer-input {
             width: 90%;
-            padding: 20px;
-            font-size: 2rem;
+            padding: 22px;
+            font-size: 2.2rem;
             text-align: center;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 18px;
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .answer-input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
         .key {
-            padding: 20px;
-            font-size: 2rem;
+            padding: 22px 10px;
+            font-size: 2.2rem;
             background: rgba(255, 255, 255, 0.15);
-            border: none;
-            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
             color: white;
             cursor: pointer;
             transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .key:hover {
             background: rgba(255, 255, 255, 0.25);
         }
+        .key:active {
+            transform: scale(0.95);
+        }
         .control-btn {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
+            margin-top: 15px;
         }
-        .progress {
-            font-size: 1.2rem;
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 20px 0;
+        }
+        .progress-text {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            width: 90%;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            border-radius: 8px;
+            transition: width 0.5s ease;
         }
         .result-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
+            padding: 18px;
+            border-radius: 15px;
+            margin: 15px 0;
             text-align: left;
+            transition: all 0.3s;
+        }
+        .result-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.15);
         }
         .correct {
-            border-left: 5px solid #4CAF50;
+            border-left: 6px solid #00c853;
         }
         .incorrect {
-            border-left: 5px solid #f44336;
+            border-left: 6px solid #ff5252;
         }
         .share-btn {
-            background: #25D366;
+            background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
             border: none;
-            padding: 15px 25px;
-            font-size: 1.2rem;
+            padding: 18px 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        .share-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .timer {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .feature-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+        }
+        .instructions {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #ffeb3b;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .question {
+                font-size: 4.5rem;
+            }
+            .btn {
+                width: 160px;
+                padding: 14px 20px;
+                font-size: 1.1rem;
+            }
+            .key {
+                padding: 18px 5px;
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -138,24 +269,50 @@
     <div class="container">
         <!-- 首页 -->
         <div id="home-screen" class="screen active">
-            <h1>95数背数小遊戲</h1>
-            <p>計算95折的快速訓練！範圍：100～9900的整百數</p >
-            <p>範例：100 → 95，1000 → 950，300 → 285</p >
+            <h1>95数背数小游戏</h1>
+            <div class="subtitle">计算95折的快速训练 · 提升心算能力</div>
+            
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> 游戏说明</h3>
+                <p>1. 随机出现100-9900的整百数（个位和十位均为0）</p>
+                <p>2. 快速计算该数的95折结果</p>
+                <p>3. 使用下方数字键盘输入答案</p>
+                <p>4. 完成所有题目后查看成绩和错题</p>
+                <p>示例：100 → 95，200 → 190，1000 → 950，3000 → 2850</p>
+            </div>
+            
+            <div class="feature-badge"><i class="fas fa-sync-alt"></i> 随机不重复题目</div>
+            <div class="feature-badge"><i class="fas fa-stopwatch"></i> 计时功能</div>
+            <div class="feature-badge"><i class="fas fa-trophy"></i> 成绩统计</div>
+            
             <div class="btn-grid">
-                <button class="btn" data-questions="10">10題挑戰</button>
-                <button class="btn" data-questions="30">30題挑戰</button>
-                <button class="btn" data-questions="50">50題挑戰</button>
-                <button class="btn" data-questions="80">80題挑戰</button>
-                <button class="btn" data-questions="99">99題挑戰</button>
+                <button class="btn" data-questions="10"><i class="fas fa-play"></i> 10题挑战</button>
+                <button class="btn" data-questions="30"><i class="fas fa-bolt"></i> 30题挑战</button>
+                <button class="btn" data-questions="50"><i class="fas fa-fire"></i> 50题挑战</button>
+                <button class="btn" data-questions="99"><i class="fas fa-crown"></i> 99题王者</button>
             </div>
         </div>
 
         <!-- 游戏页 -->
         <div id="game-screen" class="screen">
-            <h1>95数背数小遊戲</h1>
-            <div class="progress">第 <span id="current-question">1</span> 題 / 共 <span id="total-questions">10</span> 題</div>
-            <div class="question" id="question">100</div>
-            <input type="text" class="answer-input" id="answer-input" placeholder="輸入95折答案" readonly>
+            <h1>95数背数小游戏</h1>
+            
+            <div class="progress-container">
+                <div class="progress-text">第 <span id="current-question">1</span> 题 / 共 <span id="total-questions">10</span> 题</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 10%"></div>
+                </div>
+                <div class="timer">
+                    <i class="fas fa-clock"></i> 用时: <span id="timer">00:00</span>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question" id="question">100</div>
+            </div>
+            
+            <input type="text" class="answer-input" id="answer-input" placeholder="输入95折答案" readonly>
+            
             <div class="keypad">
                 <button class="key">1</button>
                 <button class="key">2</button>
@@ -166,31 +323,44 @@
                 <button class="key">7</button>
                 <button class="key">8</button>
                 <button class="key">9</button>
-                <button class="key" id="backspace">⌫</button>
+                <button class="key" id="backspace"><i class="fas fa-backspace"></i></button>
                 <button class="key">0</button>
-                <button class="key" id="clear">C</button>
+                <button class="key" id="clear"><i class="fas fa-trash-alt"></i></button>
             </div>
+            
             <div class="control-btn">
-                <button class="btn" id="submit-btn">確定</button>
-                <button class="btn" id="next-btn">下一題</button>
+                <button class="btn" id="submit-btn"><i class="fas fa-check-circle"></i> 确定</button>
+                <button class="btn" id="next-btn"><i class="fas fa-arrow-right"></i> 下一题</button>
             </div>
         </div>
 
         <!-- 结果页 -->
         <div id="result-screen" class="screen">
-            <h1>遊戲結束！</h1>
-            <div class="score">得分：<span id="score">0</span> / <span id="total">10</span></div>
-            <div class="accuracy">正確率：<span id="accuracy">0</span>%</div>
+            <h1>挑战完成！</h1>
             
-            <h3>錯題紀錄：</h3>
-            <div id="incorrect-answers"></div>
+            <div class="score" style="font-size: 1.8rem; margin: 20px 0;">
+                得分：<span id="score" style="font-size: 2.5rem;">0</span> / <span id="total" style="font-size: 2.5rem;">10</span>
+            </div>
             
-            <button class="btn" id="restart-btn">再玩一次</button>
+            <div class="accuracy" style="font-size: 1.5rem; margin-bottom: 25px;">
+                正确率：<span id="accuracy" style="font-size: 2rem;">0</span>%
+            </div>
+            
+            <div class="timer" style="font-size: 1.3rem; margin-bottom: 20px;">
+                <i class="fas fa-stopwatch"></i> 总用时: <span id="total-time">00:00</span>
+            </div>
+            
+            <div style="margin: 25px 0;">
+                <h3><i class="fas fa-exclamation-triangle"></i> 错题记录：</h3>
+                <div id="incorrect-answers"></div>
+            </div>
+            
+            <button class="btn" id="restart-btn" style="background: linear-gradient(45deg, #2196F3, #21CBF3);">
+                <i class="fas fa-redo"></i> 再玩一次
+            </button>
+            
             <button class="share-btn" id="share-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                    <path d="M18 16c-.8 0-1.5.3-2 .9l-7-4.1v-1.6l7-4.1c.5.6 1.2.9 2 .9 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3v.3l-7 4.1c-.5-.6-1.2-.9-2-.9-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.9l7 4.1v.3c0 1.7 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3z"/>
-                </svg>
-                分享到微信
+                <i class="fab fa-weixin"></i> 分享到微信
             </button>
         </div>
     </div>
@@ -204,7 +374,11 @@
             questions: [],
             userAnswers: [],
             correctAnswers: [],
-            incorrectList: []
+            incorrectList: [],
+            startTime: null,
+            timerInterval: null,
+            elapsedTime: 0,
+            usedNumbers: new Set()
         };
 
         // DOM元素
@@ -220,14 +394,30 @@
             screen.classList.add('active');
         }
 
-        // 生成题目 (100-9900的整百数)
+        // 生成不重复的题目 (100-9900的整百数)
         function generateQuestions(count) {
             const questions = [];
-            for (let i = 0; i < count; i++) {
-                // 生成100到99之间的随机数，然后乘以100得到整百数
-                const num = (Math.floor(Math.random() * 99) + 1) * 100;
-                questions.push(num);
+            const allNumbers = Array.from({length: 99}, (_, i) => (i + 1) * 100);
+            
+            // 重置已用数字集
+            gameState.usedNumbers.clear();
+            
+            // 如果请求数量超过可用数字，则使用全部数字
+            const actualCount = Math.min(count, allNumbers.length);
+            
+            // 洗牌算法打乱数组
+            for (let i = allNumbers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
             }
+            
+            // 取前actualCount个不重复的数字
+            for (let i = 0; i < actualCount; i++) {
+                const num = allNumbers[i];
+                questions.push(num);
+                gameState.usedNumbers.add(num);
+            }
+            
             return questions;
         }
 
@@ -236,8 +426,27 @@
             return Math.floor(number * 0.95);
         }
 
+        // 开始计时器
+        function startTimer() {
+            gameState.startTime = new Date();
+            gameState.timerInterval = setInterval(() => {
+                const now = new Date();
+                gameState.elapsedTime = Math.floor((now - gameState.startTime) / 1000);
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        // 更新计时器显示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }
+
         // 开始新游戏
         function startGame(questionCount) {
+            clearInterval(gameState.timerInterval);
+            
             gameState.totalQuestions = questionCount;
             gameState.currentQuestion = 1;
             gameState.score = 0;
@@ -245,13 +454,27 @@
             gameState.userAnswers = [];
             gameState.correctAnswers = [];
             gameState.incorrectList = [];
+            gameState.elapsedTime = 0;
             
             document.getElementById('current-question').textContent = '1';
-            document.getElementById('total-questions').textContent = questionCount;
+            document.getElementById('total-questions').textContent = gameState.questions.length;
             document.getElementById('question').textContent = gameState.questions[0];
             document.getElementById('answer-input').value = '';
+            document.getElementById('progress-fill').style.width = '0%';
+            
+            // 启用提交按钮，禁用下一题按钮
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('next-btn').disabled = true;
             
             showScreen(screens.game);
+            startTimer();
+            updateProgressBar();
+        }
+
+        // 更新进度条
+        function updateProgressBar() {
+            const progress = ((gameState.currentQuestion - 1) / gameState.questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
         }
 
         // 提交答案
@@ -284,8 +507,8 @@
         function nextQuestion() {
             gameState.currentQuestion++;
             
-            if (gameState.currentQuestion > gameState.totalQuestions) {
-                showResults();
+            if (gameState.currentQuestion > gameState.questions.length) {
+                endGame();
                 return;
             }
             
@@ -296,29 +519,42 @@
             // 启用提交按钮，禁用下一题按钮
             document.getElementById('submit-btn').disabled = false;
             document.getElementById('next-btn').disabled = true;
+            
+            updateProgressBar();
+        }
+
+        // 结束游戏
+        function endGame() {
+            clearInterval(gameState.timerInterval);
+            showResults();
         }
 
         // 显示结果
         function showResults() {
-            const accuracy = Math.round((gameState.score / gameState.totalQuestions) * 100);
+            const totalQuestions = gameState.questions.length;
+            const accuracy = Math.round((gameState.score / totalQuestions) * 100);
             
             document.getElementById('score').textContent = gameState.score;
-            document.getElementById('total').textContent = gameState.totalQuestions;
+            document.getElementById('total').textContent = totalQuestions;
             document.getElementById('accuracy').textContent = accuracy;
+            
+            const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
+            document.getElementById('total-time').textContent = `${minutes}:${seconds}`;
             
             const incorrectContainer = document.getElementById('incorrect-answers');
             incorrectContainer.innerHTML = '';
             
             if (gameState.incorrectList.length === 0) {
-                incorrectContainer.innerHTML = '<p>太棒了！全部答對！🎉</p >';
+                incorrectContainer.innerHTML = '<div class="result-item" style="text-align:center; background:rgba(0,200,83,0.15);">太棒了！全部答对！🎉</div>';
             } else {
                 gameState.incorrectList.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'result-item incorrect';
                     div.innerHTML = `
-                        <div>題目: ${item.question}</div>
-                        <div>您的答案: ${item.userAnswer}</div>
-                        <div>正確答案: <strong>${item.correctAnswer}</strong></div>
+                        <div><strong>题目:</strong> ${item.question}</div>
+                        <div><strong>您的答案:</strong> ${item.userAnswer}</div>
+                        <div><strong>正确答案:</strong> ${item.correctAnswer}</div>
                     `;
                     incorrectContainer.appendChild(div);
                 });
@@ -329,7 +565,7 @@
 
         // 分享功能
         function shareToWechat() {
-            const shareText = `我在95数背数小游戏中获得${gameState.score}/${gameState.totalQuestions}分！正確率${Math.round((gameState.score / gameState.totalQuestions) * 100)}%！快來挑戰吧！`;
+            const shareText = `我在95数背数小游戏中获得${gameState.score}/${gameState.questions.length}分！正确率${Math.round((gameState.score / gameState.questions.length) * 100)}%！用时${document.getElementById('total-time').textContent}！快来挑战吧！`;
             const shareUrl = window.location.href;
             
             if (navigator.share) {
@@ -340,7 +576,14 @@
                 }).catch(console.error);
             } else {
                 // 备用分享方案
-                alert(`分享到微信：\n${shareText}\n\n連結：${shareUrl}\n\n請複製此訊息分享給朋友`);
+                const shareMessage = `分享到微信：\n${shareText}\n\n链接：${shareUrl}\n\n请复制此消息分享给朋友`;
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(shareMessage).then(() => {
+                        alert('分享内容已复制到剪贴板！');
+                    });
+                } else {
+                    alert(shareMessage);
+                }
             }
         }
 
@@ -372,9 +615,6 @@
             document.getElementById('answer-input').value = '';
         });
 
-        // 初始化禁用下一题按钮
-        document.getElementById('next-btn').disabled = true;
-        
         // 键盘支持
         document.addEventListener('keydown', (e) => {
             if (e.key >= '0' && e.key <= '9') {
@@ -390,6 +630,9 @@
                 }
             }
         });
+
+        // 初始化禁用下一题按钮
+        document.getElementById('next-btn').disabled = true;
     </script>
 </body>
 </html>
