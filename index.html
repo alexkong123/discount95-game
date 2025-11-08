@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>95数背数小游戏 - 音效修复版</title>
+    <title>95数背数小游戏 - 微信优化版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -249,8 +249,11 @@
             margin-top: 15px;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 300px;
         }
         
         .timer {
@@ -322,22 +325,68 @@
             gap: 8px;
         }
         
-        .sound-status {
-            margin-top: 10px;
-            padding: 8px;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .modal p {
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        
+        .modal-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .share-instructions {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
             border-radius: 10px;
-            background: #fff8e1;
-            font-size: 0.9rem;
         }
         
-        .sound-status.error {
-            background: #ffebee;
-            color: #c62828;
+        .share-instructions li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
         }
         
-        .sound-status.success {
-            background: #e8f5e9;
-            color: #2e7d32;
+        .share-instructions i {
+            margin-right: 10px;
+            color: #3498db;
+            min-width: 24px;
         }
         
         /* 微信优化 */
@@ -371,6 +420,10 @@
             .answer-input {
                 padding: 12px;
                 font-size: 1.4rem;
+            }
+            
+            .modal-content {
+                width: 90%;
             }
         }
         
@@ -413,12 +466,7 @@
                 <div>
                     <div class="feature-badge"><i class="fas fa-sync-alt"></i> 随机不重复题目</div>
                     <div class="feature-badge"><i class="fas fa-stopwatch"></i> 计时功能</div>
-                    <div class="feature-badge"><i class="fas fa-music"></i> 音效反馈</div>
                     <div class="feature-badge"><i class="fas fa-trophy"></i> 成绩统计</div>
-                </div>
-                
-                <div class="sound-status success" id="sound-status">
-                    <i class="fas fa-check-circle"></i> 音效系统已成功初始化
                 </div>
             </div>
             
@@ -502,115 +550,53 @@
                 </div>
             </div>
             
-            <div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
                 <button class="btn" id="restart-btn" style="background: linear-gradient(45deg, #f39c12, #e67e22);">
                     <i class="fas fa-redo"></i> 再玩一次
                 </button>
                 
                 <button class="share-btn" id="share-btn">
-                    <i class="fab fa-weixin"></i> 分享到微信
+                    <i class="fab fa-weixin"></i> 分享成绩
                 </button>
             </div>
         </div>
     </div>
+    
+    <!-- 分享引导模态框 -->
+    <div class="modal" id="share-modal">
+        <div class="modal-content">
+            <h3><i class="fab fa-weixin"></i> 分享到微信</h3>
+            <p>请使用微信右上角的分享功能</p>
+            
+            <div class="share-instructions">
+                <ul>
+                    <li>
+                        <i class="fas fa-1"></i> 点击微信右上角的 <strong>"..."</strong> 按钮
+                    </li>
+                    <li>
+                        <i class="fas fa-2"></i> 在弹出菜单中选择 <strong>"分享到朋友圈"</strong> 或 <strong>"发送给朋友"</strong>
+                    </li>
+                    <li>
+                        <i class="fas fa-3"></i> 选择您要分享的好友或群聊
+                    </li>
+                </ul>
+            </div>
+            
+            <p>或者复制以下分享信息：</p>
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <p id="share-text" style="font-size: 0.9rem; word-break: break-all;"></p>
+            </div>
+            
+            <button class="modal-btn" id="copy-btn">
+                <i class="fas fa-copy"></i> 复制分享内容
+            </button>
+            <button class="modal-btn" id="close-modal" style="background: #7f8c8d;">
+                <i class="fas fa-times"></i> 关闭
+            </button>
+        </div>
+    </div>
 
     <script>
-        // ======================
-        // 音效系统修复
-        // ======================
-        
-        // 音效控制
-        let soundEnabled = true;
-        const soundToggle = document.getElementById('sound-toggle');
-        const soundIcon = document.getElementById('sound-icon');
-        const soundStatus = document.getElementById('sound-status');
-        
-        // 创建AudioContext
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioContext = new AudioContext();
-        
-        // 创建音效缓冲
-        const soundBuffers = {};
-        
-        // 初始化音效系统
-        async function initSoundSystem() {
-            try {
-                // 创建简单音效
-                soundBuffers.key = createBeep(800, 0.05);
-                soundBuffers.correct = createBeep(1200, 0.1);
-                soundBuffers.wrong = createBeep(400, 0.2);
-                soundBuffers.start = createBeep(1000, 0.2);
-                soundBuffers.end = createBeep(600, 0.3);
-                soundBuffers.button = createBeep(600, 0.1);
-                
-                // 测试播放
-                playSound('button');
-                
-                soundStatus.innerHTML = '<i class="fas fa-check-circle"></i> 音效系统已成功初始化';
-                soundStatus.className = 'sound-status success';
-            } catch (e) {
-                console.error('音效初始化失败:', e);
-                soundStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> 音效初始化失败: ${e.message}`;
-                soundStatus.className = 'sound-status error';
-                soundEnabled = false;
-            }
-        }
-        
-        // 创建简单的蜂鸣声
-        function createBeep(frequency, duration) {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.type = 'sine';
-            oscillator.frequency.value = frequency;
-            gainNode.gain.value = 0.3;
-            
-            return { oscillator, gainNode, duration };
-        }
-        
-        // 播放音效函数
-        function playSound(type) {
-            if (!soundEnabled) return;
-            if (!soundBuffers[type]) return;
-            
-            try {
-                const { oscillator, gainNode, duration } = soundBuffers[type];
-                
-                // 复制音效设置
-                const newOscillator = audioContext.createOscillator();
-                const newGainNode = audioContext.createGain();
-                
-                newOscillator.type = oscillator.type;
-                newOscillator.frequency.value = oscillator.frequency.value;
-                newGainNode.gain.value = gainNode.gain.value;
-                
-                newOscillator.connect(newGainNode);
-                newGainNode.connect(audioContext.destination);
-                
-                newOscillator.start();
-                newOscillator.stop(audioContext.currentTime + duration);
-            } catch (e) {
-                console.error('播放音效失败:', e);
-            }
-        }
-        
-        // 音效开关
-        soundToggle.addEventListener('click', () => {
-            soundEnabled = !soundEnabled;
-            soundIcon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
-            playSound('button');
-        });
-        
-        // 初始化音效系统
-        setTimeout(initSoundSystem, 500);
-        
-        // ======================
-        // 游戏逻辑
-        // ======================
-        
         // 防止页面缩放的特殊JavaScript
         document.addEventListener('touchmove', function(event) {
             if (event.scale !== 1) {
@@ -647,11 +633,26 @@
             game: document.getElementById('game-screen'),
             result: document.getElementById('result-screen')
         };
+        
+        // 分享模态框
+        const shareModal = document.getElementById('share-modal');
+        const shareText = document.getElementById('share-text');
+        const copyBtn = document.getElementById('copy-btn');
+        const closeModal = document.getElementById('close-modal');
 
         // 切换屏幕
         function showScreen(screen) {
             Object.values(screens).forEach(s => s.classList.remove('active'));
             screen.classList.add('active');
+        }
+        
+        // 显示/隐藏模态框
+        function showModal() {
+            shareModal.style.display = 'flex';
+        }
+        
+        function hideModal() {
+            shareModal.style.display = 'none';
         }
 
         // 生成不重复的题目 (100-9900的整百数)
@@ -729,9 +730,6 @@
             showScreen(screens.game);
             startTimer();
             updateProgressBar();
-            
-            // 播放游戏开始音效
-            playSound('start');
         }
 
         // 更新进度条
@@ -753,8 +751,6 @@
             
             if (parseInt(userAnswer) === correctAnswer) {
                 gameState.score++;
-                // 播放正确音效
-                playSound('correct');
                 // 添加视觉反馈
                 document.getElementById('answer-input').style.backgroundColor = '#e8f5e9';
             } else {
@@ -763,8 +759,6 @@
                     userAnswer: parseInt(userAnswer),
                     correctAnswer: correctAnswer
                 });
-                // 播放错误音效
-                playSound('wrong');
                 // 添加视觉反馈
                 document.getElementById('answer-input').style.backgroundColor = '#ffebee';
             }
@@ -776,8 +770,6 @@
 
         // 下一题
         function nextQuestion() {
-            playSound('button');
-            
             gameState.currentQuestion++;
             
             if (gameState.currentQuestion > gameState.questions.length) {
@@ -801,9 +793,6 @@
         function endGame() {
             clearInterval(gameState.timerInterval);
             showResults();
-            
-            // 根据分数播放不同音效
-            playSound('end');
         }
 
         // 显示结果
@@ -842,73 +831,93 @@
 
         // 分享功能
         function shareToWechat() {
-            playSound('button');
+            // 生成分享文本
+            const totalQuestions = gameState.questions.length;
+            const accuracy = Math.round((gameState.score / totalQuestions) * 100);
+            const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
+            const timeText = `${minutes}:${seconds}`;
             
-            const shareText = `我在95数背数小游戏中获得${gameState.score}/${gameState.questions.length}分！正确率${Math.round((gameState.score / gameState.questions.length) * 100)}%！用时${document.getElementById('total-time').textContent}！快来挑战吧！`;
-            const shareUrl = window.location.href;
+            const shareContent = `我在95数背数小游戏中获得${gameState.score}/${totalQuestions}分！正确率${accuracy}%！用时${timeText}！快来挑战吧！\n游戏链接：${window.location.href}`;
             
-            // 微信分享特殊处理
-            if (typeof WeixinJSBridge !== 'undefined') {
-                WeixinJSBridge.invoke('shareTimeline', {
-                    'title': shareText,
-                    'link': shareUrl,
-                    'imgUrl': 'https://example.com/share-image.jpg'
-                });
-            } else {
-                // 备用分享方案
-                const shareMessage = `分享到微信：\n${shareText}\n\n链接：${shareUrl}\n\n请复制此消息分享给朋友`;
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(shareMessage).then(() => {
-                        alert('分享内容已复制到剪贴板！');
-                    });
-                } else {
-                    alert(shareMessage);
-                }
+            // 设置分享文本
+            shareText.textContent = shareContent;
+            
+            // 显示分享引导
+            showModal();
+        }
+        
+        // 复制分享内容
+        function copyShareText() {
+            const textToCopy = shareText.textContent;
+            
+            // 创建临时textarea元素
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            
+            // 选择文本
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // 移动设备支持
+            
+            try {
+                // 执行复制命令
+                const successful = document.execCommand('copy');
+                const msg = successful ? '已复制到剪贴板' : '复制失败';
+                alert(msg);
+            } catch (err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制文本');
             }
+            
+            // 清理
+            document.body.removeChild(textArea);
         }
 
         // 事件监听器
         document.querySelectorAll('.btn[data-questions]').forEach(btn => {
             btn.addEventListener('click', () => {
-                playSound('button');
                 startGame(parseInt(btn.dataset.questions));
             });
         });
 
         document.getElementById('submit-btn').addEventListener('click', submitAnswer);
         document.getElementById('next-btn').addEventListener('click', nextQuestion);
-        document.getElementById('restart-btn').addEventListener('click', () => {
-            playSound('button');
-            showScreen(screens.home);
-        });
+        document.getElementById('restart-btn').addEventListener('click', () => showScreen(screens.home));
         document.getElementById('share-btn').addEventListener('click', shareToWechat);
+        
+        // 分享模态框事件
+        copyBtn.addEventListener('click', copyShareText);
+        closeModal.addEventListener('click', hideModal);
+        
+        // 点击模态框外部关闭
+        shareModal.addEventListener('click', (e) => {
+            if (e.target === shareModal) {
+                hideModal();
+            }
+        });
 
         // 数字键盘处理
         document.querySelectorAll('.key:not(#backspace):not(#clear)').forEach(key => {
             key.addEventListener('click', () => {
-                playSound('key');
                 document.getElementById('answer-input').value += key.textContent;
             });
         });
 
         document.getElementById('backspace').addEventListener('click', () => {
-            playSound('key');
             const input = document.getElementById('answer-input');
             input.value = input.value.slice(0, -1);
         });
 
         document.getElementById('clear').addEventListener('click', () => {
-            playSound('key');
             document.getElementById('answer-input').value = '';
         });
 
         // 键盘支持
         document.addEventListener('keydown', (e) => {
             if (e.key >= '0' && e.key <= '9') {
-                playSound('key');
                 document.getElementById('answer-input').value += e.key;
             } else if (e.key === 'Backspace') {
-                playSound('key');
                 const input = document.getElementById('answer-input');
                 input.value = input.value.slice(0, -1);
             } else if (e.key === 'Enter') {
