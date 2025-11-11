@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>95數背數小游戲 </title>
+    <title>95數背數小游戲~測試版 </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -462,7 +462,7 @@
         <!-- 首页 -->
         <div id="home-screen" class="screen active">
             <div>
-                <h1>95數背數小游戲</h1>
+                <h1>95數背數小游戲～測試版</h1>
                 <div class="subtitle">計算95數的快速訓練 · 提升心算能力</div>
                 
                 <div class="instructions">
@@ -876,7 +876,7 @@
             document.getElementById('progress-fill').style.width = '0%';
             
             // 启用提交按钮，禁用下一题按钮
-            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').disabled = true;
             document.getElementById('next-btn').disabled = true;
             
             showScreen(screens.game);
@@ -932,7 +932,7 @@
             
             // 禁用提交按钮，启用下一题按钮
             document.getElementById('submit-btn').disabled = true;
-            document.getElementById('next-btn').disabled = false;
+            document.getElementById('next-btn').disabled = true;
         }
 
         // 下一题
@@ -952,7 +952,7 @@
             document.getElementById('answer-input').style.backgroundColor = '';
             
             // 启用提交按钮，禁用下一题按钮
-            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').disabled = true;
             document.getElementById('next-btn').disabled = true;
             
             updateProgressBar();
@@ -1061,7 +1061,7 @@
         });
 
         // 初始化禁用下一题按钮
-        document.getElementById('next-btn').disabled = true;
+        document.getElementById('next-btn').disabled = fales;
         
         // 微信环境特殊处理
         if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) {
@@ -1070,6 +1070,7 @@
     </script>
 </body>
 </html>
+
 
 
 
