@@ -550,6 +550,11 @@
 
         <!-- 结果页 -->
         <div id="result-screen" class="screen">
+                     <!-- 返回首页按钮 -->
+            <div class="back-home-btn" id="back-home-result">
+                <i class="fas fa-home"></i>
+            </div>
+
             <div>
                 <h1>挑戰完成！</h1>
                 
@@ -783,6 +788,20 @@
             Object.values(screens).forEach(s => s.classList.remove('active'));
             screen.classList.add('active');
         }
+
+         // 返回首页功能
+        function goToHomeScreen() {
+            // 停止游戏计时器
+            clearInterval(gameState.timerInterval);
+            // 播放按钮音效
+            playSound('button');
+            // 切换到首页
+            showScreen(screens.home);
+        }
+        
+        // 绑定返回首页按钮事件
+        document.getElementById('back-home-game').addEventListener('click', goToHomeScreen);
+        document.getElementById('back-home-result').addEventListener('click', goToHomeScreen);
 
         // 生成不重复的题目 (100-9900的整百数)
         function generateQuestions(count) {
@@ -1047,6 +1066,7 @@
     </script>
 </body>
 </html>
+
 
 
 
