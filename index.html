@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>95数背数小游戏 - 高级难度版</title>
+    <title>95數練習小遊戲 - 高級級難度版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -416,7 +416,7 @@
             background: linear-gradient(45deg, #7f8c8d, #95a5a6);
         }
         
-        /* 响应式调整 */
+        /* 回應式調整 */
         @media (max-width: 500px) {
             .container {
                 height: 100vh;
@@ -457,7 +457,7 @@
 </head>
 <body>
     <div class="difficulty-badge">
-        <i class="fas fa-fire"></i> 高级难度
+        <i class="fas fa-fire"></i> 高級難度
     </div>
     
     <div class="sound-toggle" id="sound-toggle">
@@ -469,58 +469,57 @@
     </div>
     
     <div class="container">
-        <!-- 首页 -->
+        <!-- 首頁 -->
         <div class="screen active" id="home-screen">
             <div>
-                <h1>95数背数小游戏</h1>
-                <div class="subtitle">高级难度 · 心算大师挑战</div>
+                <h1>95數練習小遊戲</h1>
+                <div class="subtitle">高級難度 · 心算大師挑戰</div>
                 
                 <div class="instructions">
-                    <h3><i class="fas fa-info-circle"></i> 游戏说明</h3>
-                    <p>1. 随机出现10100-99800的整百数</p>
-                    <p>2. 快速输入该数的95折结果</p>
-                    <p>3. 使用下方数字键盘输入答案</p>
-                    <p>4. 完成所有题目查看成绩和错题</p>
+                    <h3><i class="fas fa-info-circle"></i> 遊戲說明</h3>
+                    <p>1. 隨機出現10100-99800的整百數</p>
+                    <p>2. 快速輸入該數的95結果</p>
+                    <p>3. 使用下方數字鍵盤輸入答案</p>
+                    <p>4. 完成所有題目查看成績和錯題</p>
                     <p>示例：10200 → 9690，20400 → 19380，50600 → 48070</p>
                 </div>
                 
                 <div>
-                    <div class="feature-badge"><i class="fas fa-sync-alt"></i> 随机不重复题目</div>
-                    <div class="feature-badge"><i class="fas fa-stopwatch"></i> 限时挑战</div>
-                    <div class="feature-badge"><i class="fas fa-brain"></i> 高级心算训练</div>
-                    <div class="feature-badge"><i class="fas fa-trophy"></i> 成绩统计</div>
+                    <div class="feature-badge"><i class="fas fa-sync-alt"></i> 隨機鴉重複題目</div>
+                    <div class="feature-badge"><i class="fas fa-stopwatch"></i> 限時挑戰</div>
+                    <div class="feature-badge"><i class="fas fa-trophy"></i> 成績統計</div>
                 </div>
                 
                 <div class="sound-status" id="sound-status">
-                    <i class="fas fa-volume-up"></i> 音效系统已启用
+                    <i class="fas fa-volume-up"></i> 音效系統已啟用
                 </div>
                 
                 <div class="btn-grid">
-                    <button class="btn" data-questions="10"><i class="fas fa-play"></i> 10题挑战</button>
-                    <button class="btn" data-questions="20"><i class="fas fa-bolt"></i> 20题挑战</button>
-                    <button class="btn" data-questions="30"><i class="fas fa-fire"></i> 30题挑战</button>
-                    <button class="btn" data-questions="50"><i class="fas fa-star"></i> 50题挑战</button>
+                    <button class="btn" data-questions="10"><i class="fas fa-play"></i> 10題挑戰</button>
+                    <button class="btn" data-questions="20"><i class="fas fa-bolt"></i> 20題挑戰</button>
+                    <button class="btn" data-questions="30"><i class="fas fa-fire"></i> 30題挑戰/button>
+                    <button class="btn" data-questions="50"><i class="fas fa-star"></i> 50題挑戰</button>
                 </div>
                 
                 <div class="wx-tip">
-                    <i class="fas fa-mobile-alt"></i> 提示：在微信中点击右上角... 使用浏览器打开可获得更好体验
+                    <i class="fas fa-mobile-alt"></i> 提示：提示：此應用由PID製作（Alexkong)
                 </div>
             </div>
         </div>
 
-        <!-- 游戏页 -->
+        <!-- 遊戲頁 -->
         <div class="screen" id="game-screen">
             <div>
-                <h1>95数背数小游戏</h1>
-                <div class="subtitle">高级难度挑战</div>
+                <h1>5數練習小遊戲</h1>
+                <div class="subtitle">高級難度挑戰</div>
                 
                 <div class="progress-container">
-                    <div class="progress-text">第 <span id="current-question">1</span> 题 / 共 <span id="total-questions">10</span> 题</div>
+                    <div class="progress-text">第 <span id="current-question">1</span> 題 / 共 <span id="total-questions">10</span> 題</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
                     </div>
                     <div class="timer">
-                        <i class="fas fa-clock"></i> 剩余时间: <span id="question-timer" class="timers">5</span> 秒
+                        <i class="fas fa-clock"></i> 剩餘時間: <span id="question-timer" class="timers">5</span> 秒
                     </div>
                 </div>
                 
@@ -528,7 +527,7 @@
                     <div class="question" id="question">10200</div>
                 </div>
                 
-                <input type="text" class="answer-input" id="answer-input" placeholder="输入95折答案" readonly>
+                <input type="text" class="answer-input" id="answer-input" placeholder="輸入95數答案" readonly>
                 
                 <div class="keypad">
                     <button class="key">1</button>
@@ -546,33 +545,33 @@
                 </div>
                 
                 <div class="control-btn">
-                    <button class="btn" id="next-btn" disabled><i class="fas fa-arrow-right"></i> 下一题</button>
-                    <!-- 添加返回首页按钮 -->
-                    <button class="btn back-to-home"><i class="fas fa-home"></i> 返回首页</button>
+                    <button class="btn" id="next-btn" disabled><i class="fas fa-arrow-right"></i> 下一題</button>
+                    <!-- 添加返回首頁按鈕 -->
+                    <button class="btn back-to-home"><i class="fas fa-home"></i> 返回首頁</button>
                 </div>
             </div>
         </div>
 
-        <!-- 结果页 -->
+        <!-- 結果頁 -->
         <div class="screen" id="result-screen">
             <div>
-                <h1>挑战完成！</h1>
-                <div class="subtitle">高级难度成绩统计</div>
+                <h1>挑戰完成！</h1>
+                <div class="subtitle">高級難度成績統計</div>
                 
                 <div class="score" style="font-size: 1.4rem; margin: 12px 0;">
                     得分：<span id="score" style="font-size: 1.8rem; color:#3498db;">0</span> / <span id="total" style="font-size: 1.8rem;">10</span>
                 </div>
                 
                 <div class="accuracy" style="font-size: 1.2rem; margin-bottom: 15px;">
-                    正确率：<span id="accuracy" style="font-size: 1.6rem; color:#e74c3c;">0</span>%
+                    正確率：<span id="accuracy" style="font-size: 1.6rem; color:#e74c3c;">0</span>%
                 </div>
                 
                 <div class="timer" style="font-size: 1rem; margin-bottom: 12px;">
-                    <i class="fas fa-stopwatch"></i> 总用时: <span id="total-time">00:00</span>
+                    <i class="fas fa-stopwatch"></i> 總用時: <span id="total-time">00:00</span>
                 </div>
                 
                 <div style="margin: 15px 0;">
-                    <h3><i class="fas fa-exclamation-triangle"></i> 错题记录：</h3>
+                    <h3><i class="fas fa-exclamation-triangle"></i> 錯題記錄：</h3>
                     <div id="incorrect-answers" style="max-height: 200px; overflow-y: auto;"></div>
                 </div>
             </div>
@@ -582,57 +581,57 @@
                     <i class="fas fa-redo"></i> 再玩一次
                 </button>
                 
-                <!-- 添加返回首页按钮 -->
-                <button class="btn back-to-home-result"><i class="fas fa-home"></i> 返回首页</button>
+                <!-- 添加返回首頁按鈕 -->
+                <button class="btn back-to-home-result"><i class="fas fa-home"></i> 返回首頁</button>
                 
                 <button class="share-btn" id="share-btn">
-                    <i class="fab fa-weixin"></i> 分享成绩
+                    <i class="fab fa-weixin"></i> 分享成績
                 </button>
             </div>
         </div>
     </div>
     
-    <!-- 分享模态框 -->
+    <!-- 分享模態框 -->
     <div class="modal" id="share-modal">
         <div class="modal-content">
             <h3><i class="fab fa-weixin"></i> 分享到微信</h3>
-            <p>请使用微信右上角的分享功能</p>
+            <p>請使用微信右上角的分享功能</p>
             
             <div class="share-instructions">
                 <ul>
                     <li>
-                        <i class="fas fa-1"></i> 点击微信右上角的 <strong>"..."</strong> 按钮
+                        <i class="fas fa-1"></i> 點擊微信右上角的 <strong>"..."</strong> 按鈕
                     </li>
                     <li>
-                        <i class="fas fa-2"></i> 在弹出菜单中选择 <strong>"分享到朋友圈"</strong> 或 <strong>"发送给朋友"</strong>
+                        <i class="fas fa-2"></i> 在彈出功能表中選擇 <strong>"分享到朋友圈"</strong> 或 <strong>"發送給朋友"</strong>
                     </li>
                     <li>
-                        <i class="fas fa-3"></i> 选择您要分享的好友或群聊
+                        <i class="fas fa-3"></i> 選擇您要分享的好友或群聊
                     </li>
                 </ul>
             </div>
             
-            <p>或者复制以下分享信息：</p>
+            <p>或者複製以下分享資訊：</p>
             <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
                 <p id="share-text" style="font-size: 0.9rem; word-break: break-all;"></p>
             </div>
             
             <button class="btn" id="copy-btn" style="background: #3498db;">
-                <i class="fas fa-copy"></i> 复制分享内容
+                <i class="fas fa-copy"></i> 複製分享內容
             </button>
             <button class="btn" id="close-modal" style="background: #7f8c8d;">
-                <i class="fas fa-times"></i> 关闭
+                <i class="fas fa-times"></i> 關閉
             </button>
         </div>
     </div>
     
-    <!-- 背景音乐播放器 -->
+    <!-- 背景音樂播放機 -->
     <audio id="bg-music" loop>
         <source src="https://github.com/alexkong123/bg-music-repo/raw/refs/heads/main/ElevateMusica-%20%5BCopyright%20Safe%20Background%20Music%5D.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // 背景音乐系统
+        // 背景音樂系統
         let bgmEnabled = true;
         const bgmToggle = document.getElementById('bgm-toggle');
         const bgmIcon = document.getElementById('bgm-icon');
@@ -643,7 +642,7 @@
             
             document.body.addEventListener('click', function initBGM() {
                 if (bgmEnabled && bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
+                    bgMusic.play().catch(e => console.log('背景音樂播放失敗:', e));
                 }
                 document.body.removeEventListener('click', initBGM);
             });
@@ -654,7 +653,7 @@
             bgmIcon.className = bgmEnabled ? 'fas fa-music' : 'fas fa-music-slash';
             
             if (bgmEnabled) {
-                bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
+                bgMusic.play().catch(e => console.log('背景音樂播放失敗:', e));
             } else {
                 bgMusic.pause();
             }
@@ -662,7 +661,7 @@
         
         setupBackgroundMusic();
         
-        // 音效系统
+        // 音效系統
         let soundEnabled = true;
         const soundToggle = document.getElementById('sound-toggle');
         const soundIcon = document.getElementById('sound-icon');
@@ -685,12 +684,12 @@
                 soundBuffers.button = createBeep(600, 0.1);
                 soundBuffers.timewarning = createBeep(300, 0.3);
                 
-                soundStatus.innerHTML = '<i class="fas fa-volume-up"></i> 音效系统已启用';
+                soundStatus.innerHTML = '<i class="fas fa-volume-up"></i> 音效系統已啟用';
                 soundStatus.className = 'sound-status';
                 
                 playSound('button');
             } catch (e) {
-                soundStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> 音效初始化失败: ${e.message}`;
+                soundStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> 音效初始化失敗: ${e.message}`;
                 soundStatus.className = 'sound-status error';
                 soundEnabled = false;
             }
@@ -735,7 +734,7 @@
                 newOscillator.start();
                 newOscillator.stop(audioContext.currentTime + duration);
             } catch (e) {
-                console.error('播放音效失败:', e);
+                console.error('播放音效失敗:', e);
             }
         }
         
@@ -744,15 +743,15 @@
             soundIcon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
             
             soundStatus.innerHTML = soundEnabled 
-                ? '<i class="fas fa-volume-up"></i> 音效系统已启用' 
-                : '<i class="fas fa-volume-mute"></i> 音效已关闭';
+                ? '<i class="fas fa-volume-up"></i> 音效系統已啟用' 
+                : '<i class="fas fa-volume-mute"></i> 音效已關閉';
                 
             playSound('button');
         });
         
         setTimeout(initSoundSystem, 500);
         
-        // 游戏逻辑
+        // 遊戲邏輯
         const gameState = {
             totalQuestions: 10,
             currentQuestion: 1,
@@ -848,7 +847,7 @@
             
             playSound('start');
             
-            // 禁用下一题按钮，直到输入有效内容
+            // 禁用下一題按鈕，直到輸入有效內容
             document.getElementById('next-btn').disabled = true;
         }
 
@@ -883,10 +882,10 @@
         }
 
         function nextQuestion() {
-            // 保存当前题目的答案
+            // 保存當前題目的答案
             const userAnswer = document.getElementById('answer-input').value;
             
-            // 处理当前题目答案
+            // 處理當前題目答案
             if (userAnswer === '') {
                 gameState.userAnswers.push(null);
                 gameState.correctAnswers.push(calculate95Percent(gameState.questions[gameState.currentQuestion - 1]));
@@ -928,7 +927,7 @@
             document.getElementById('question').textContent = gameState.questions[gameState.currentQuestion - 1];
             document.getElementById('answer-input').value = '';
             
-            // 重置题目计时器
+            // 重置題目計時器
             gameState.questionTimeLeft = 5;
             gameState.isTimeout = false;
             document.getElementById('question-timer').textContent = gameState.questionTimeLeft;
@@ -937,7 +936,7 @@
             updateProgressBar();
             startQuestionTimer();
             
-            // 禁用下一题按钮，直到输入有效内容
+            // 禁用下一題按鈕，直到輸入有效內容
             document.getElementById('next-btn').disabled = true;
         }
 
@@ -965,21 +964,21 @@
             incorrectContainer.innerHTML = '';
             
             if (gameState.incorrectList.length === 0) {
-                incorrectContainer.innerHTML = '<div class="result-item" style="text-align:center; background:#e8f5e9; color:#2e7d32;">太棒了！全部答对！🎉</div>';
+                incorrectContainer.innerHTML = '<div class="result-item" style="text-align:center; background:#e8f5e9; color:#2e7d32;">太棒了！全部答對！🎉</div>';
             } else {
                 gameState.incorrectList.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'result-item';
                     
                     let html = `
-                        <div><strong>题目:</strong> ${item.question}</div>
-                        <div><strong>正确答案:</strong> <span style="color:#e74c3c;">${item.correctAnswer}</span></div>
+                        <div><strong>題目:</strong> ${item.question}</div>
+                        <div><strong>正確答案:</strong> <span style="color:#e74c3c;">${item.correctAnswer}</span></div>
                     `;
                     
                     if (item.userAnswer !== null) {
                         html += `<div><strong>您的答案:</strong> ${item.userAnswer}</div>`;
                     } else if (item.isTimeout) {
-                        html += `<div><strong>状态:</strong> <span style="color:#e74c3c;">超时未答</span></div>`;
+                        html += `<div><strong>狀態:</strong> <span style="color:#e74c3c;">超時未答</span></div>`;
                     }
                     
                     div.innerHTML = html;
@@ -1004,7 +1003,7 @@
             const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
             const timeText = `${minutes}:${seconds}`;
             
-            const shareContent = `我在95数背数小游戏高级难度中获得${gameState.score}/${totalQuestions}分！正确率${accuracy}%！用时${timeText}！快来挑战吧！\n游戏链接：${window.location.href}`;
+            const shareContent = `我在95數背數小遊戲高級難度中獲得${gameState.score}/${totalQuestions}分！正確率${accuracy}%！用時${timeText}！快來挑戰吧！\n遊戲連結：${window.location.href}`;
             
             shareText.textContent = shareContent;
             showModal();
@@ -1022,17 +1021,17 @@
             
             try {
                 const successful = document.execCommand('copy');
-                const msg = successful ? '已复制到剪贴板' : '复制失败';
+                const msg = successful ? '已複製到剪貼板' : '複製失敗';
                 alert(msg);
             } catch (e) {
-                console.error('复制失败:', e);
-                alert('复制失败，请手动复制文本');
+                console.error('複製失敗:', e);
+                alert('複製失敗，請手動複製文本');
             }
             
             document.body.removeChild(textArea);
         }
 
-        // 事件监听器
+        // 事件監聽器
         document.querySelectorAll('.btn[data-questions]').forEach(btn => {
             btn.addEventListener('click', () => {
                 playSound('button');
@@ -1040,30 +1039,30 @@
             });
         });
         
-        // 下一题按钮
+        // 下一題按鈕
         document.getElementById('next-btn').addEventListener('click', nextQuestion);
         
-        // 重启按钮
+        // 重啟按鈕
         document.getElementById('restart-btn').addEventListener('click', () => {
             playSound('button');
             showScreen(screens.home);
         });
         
-        // 分享按钮
+        // 分享按鈕
         document.getElementById('share-btn').addEventListener('click', shareToWechat);
         
-        // 分享模态框事件
+        // 分享模態框事件
         copyBtn.addEventListener('click', copyShareText);
         closeModal.addEventListener('click', hideModal);
         
-        // 点击模态框外部关闭
+        // 點擊模態框外部關閉
         shareModal.addEventListener('click', (e) => {
             if (e.target === shareModal) {
                 hideModal();
             }
         });
         
-        // 添加返回首页按钮事件监听器
+        // 添加返回首頁按鈕事件監聽器
         document.querySelectorAll('.back-to-home').forEach(btn => {
             btn.addEventListener('click', () => {
                 playSound('button');
@@ -1071,13 +1070,13 @@
             });
         });
         
-        // 数字键盘处理
+        // 數位鍵盤處理
         document.querySelectorAll('.key:not(#backspace):not(#clear)').forEach(key => {
             key.addEventListener('click', () => {
                 playSound('key');
                 document.getElementById('answer-input').value += key.textContent;
                 
-                // 输入内容后检查是否可以启用下一题按钮
+                // 輸入內容後檢查是否可以啟用下一題按鈕
                 if (document.getElementById('answer-input').value.trim() !== '') {
                     document.getElementById('next-btn').disabled = false;
                 }
@@ -1089,7 +1088,7 @@
             const input = document.getElementById('answer-input');
             input.value = input.value.slice(0, -1);
             
-            // 输入内容后检查是否可以启用下一题按钮
+            // 輸入內容後檢查是否可以啟用下一題按鈕
             if (document.getElementById('answer-input').value.trim() !== '') {
                 document.getElementById('next-btn').disabled = false;
             } else {
@@ -1103,13 +1102,13 @@
             document.getElementById('next-btn').disabled = true;
         });
         
-        // 键盘支持
+        // 鍵盤支援
         document.addEventListener('keydown', (e) => {
             if (e.key >= '0' && e.key <= '9') {
                 playSound('key');
                 document.getElementById('answer-input').value += e.key;
                 
-                // 输入内容后检查是否可以启用下一题按钮
+                // 輸入內容後檢查是否可以啟用下一題按鈕
                 if (document.getElementById('answer-input').value.trim() !== '') {
                     document.getElementById('next-btn').disabled = false;
                 }
@@ -1118,7 +1117,7 @@
                 const input = document.getElementById('answer-input');
                 input.value = input.value.slice(0, -1);
                 
-                // 输入内容后检查是否可以启用下一题按钮
+                // 輸入內容後檢查是否可以啟用下一題按鈕
                 if (document.getElementById('answer-input').value.trim() !== '') {
                     document.getElementById('next-btn').disabled = false;
                 } else {
@@ -1131,7 +1130,7 @@
             }
         });
         
-        // 输入框变化时检查按钮状态
+        // 輸入框變化時檢查按鈕狀態
         document.getElementById('answer-input').addEventListener('input', () => {
             if (document.getElementById('answer-input').value.trim() !== '') {
                 document.getElementById('next-btn').disabled = false;
@@ -1142,3 +1141,4 @@
     </script>
 </body>
 </html>
+
