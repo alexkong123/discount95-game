@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>95數練習小遊戲 - 高級級難度版</title>
+    <title>95數練習小遊戲 - 高級難度版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -235,28 +235,34 @@
             color: #7f8c8d;
         }
         
-        .feature-badge {
-            display: inline-block;
-            background: #e0f7fa;
-            color: #00796b;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin: 4px;
-            font-size: 0.8rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        .timers {
+            animation: pulse 0.3s ease;
+            color: #e74c3c;
         }
         
-        .instructions {
-            background: #e3f2fd;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-instructions {
+            background: #e1f5fe;
+            border-radius: 10px;
             padding: 12px;
-            border-radius: 15px;
             margin: 12px 0;
-            text-align: left;
             font-size: 0.85rem;
-            color: #1a237e;
+            color: #0277bd;
         }
         
-        .instructions h3 {
+        .share-instructions h3 {
             margin-top: 0;
             color: #0d47a1;
             font-size: 1rem;
@@ -297,7 +303,7 @@
         .bgm-toggle {
             position: absolute;
             top: 15px;
-            right: 60px;
+            right: 55px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             width: 36px;
@@ -326,10 +332,10 @@
         .sound-status {
             background: #e8f5e9;
             color: #2e7d32;
-            border-radius: 10px;
             padding: 8px 12px;
-            font-size: 0.9rem;
+            border-radius: 10px;
             margin-top: 10px;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -351,72 +357,6 @@
             100% { transform: scale(1); }
         }
         
-        .timers {
-            animation: timers 1s infinite;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        
-        @keyframes timers {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .share-instructions {
-            text-align: left;
-            margin: 20px 0;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-        }
-        
-        .share-instructions li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .share-instructions i {
-            margin-right: 10px;
-            color: #3498db;
-            min-width: 24px;
-        }
-        
-        .back-to-home {
-            background: linear-gradient(45deg, #9b59b6, #8e44ad);
-            margin-top: 15px;
-            width: 100%;
-        }
-        
-        .back-to-home-result {
-            background: linear-gradient(45deg, #7f8c8d, #95a5a6);
-        }
-        
-        /* 回應式調整 */
         @media (max-width: 500px) {
             .container {
                 height: 100vh;
@@ -437,16 +377,6 @@
                 width: 120px;
                 padding: 10px 15px;
                 font-size: 0.9rem;
-            }
-            
-            .answer-input {
-                padding: 12px;
-                font-size: 1.4rem;
-            }
-            
-            .key {
-                padding: 12px 5px;
-                font-size: 1.4rem;
             }
             
             .bgm-toggle {
@@ -478,7 +408,7 @@
                 <div class="instructions">
                     <h3><i class="fas fa-info-circle"></i> 遊戲說明</h3>
                     <p>1. 隨機出現10100-99800的整百數</p>
-                    <p>2. 快速輸入該數的95結果</p>
+                    <p>2. 快速輸入該數的95%結果</p>
                     <p>3. 使用下方數字鍵盤輸入答案</p>
                     <p>4. 完成所有題目查看成績和錯題</p>
                     <p>示例：10200 → 9690，20400 → 19380，50600 → 48070</p>
@@ -497,12 +427,12 @@
                 <div class="btn-grid">
                     <button class="btn" data-questions="10"><i class="fas fa-play"></i> 10題挑戰</button>
                     <button class="btn" data-questions="20"><i class="fas fa-bolt"></i> 20題挑戰</button>
-                    <button class="btn" data-questions="30"><i class="fas fa-fire"></i> 30題挑戰/button>
+                    <button class="btn" data-questions="30"><i class="fas fa-fire"></i> 30題挑戰</button>
                     <button class="btn" data-questions="50"><i class="fas fa-star"></i> 50題挑戰</button>
                 </div>
                 
                 <div class="wx-tip">
-                    <i class="fas fa-mobile-alt"></i> 提示：提示：此應用由PID製作（Alexkong)
+                    <i class="fas fa-mobile-alt"></i> 提示：此應用由PID製作（Alexkong)
                 </div>
             </div>
         </div>
@@ -510,7 +440,7 @@
         <!-- 遊戲頁 -->
         <div class="screen" id="game-screen">
             <div>
-                <h1>5數練習小遊戲</h1>
+                <h1>95數練習小遊戲</h1>
                 <div class="subtitle">高級難度挑戰</div>
                 
                 <div class="progress-container">
@@ -546,7 +476,6 @@
                 
                 <div class="control-btn">
                     <button class="btn" id="next-btn" disabled><i class="fas fa-arrow-right"></i> 下一題</button>
-                    <!-- 添加返回首頁按鈕 -->
                     <button class="btn back-to-home"><i class="fas fa-home"></i> 返回首頁</button>
                 </div>
             </div>
@@ -581,7 +510,6 @@
                     <i class="fas fa-redo"></i> 再玩一次
                 </button>
                 
-                <!-- 添加返回首頁按鈕 -->
                 <button class="btn back-to-home-result"><i class="fas fa-home"></i> 返回首頁</button>
                 
                 <button class="share-btn" id="share-btn">
@@ -632,124 +560,118 @@
 
     <script>
         // 背景音樂系統
-        let bgmEnabled = true;
-        const bgmToggle = document.getElementById('bgm-toggle');
-        const bgmIcon = document.getElementById('bgm-icon');
-        const bgMusic = document.getElementById('bg-music');
-        
-        function setupBackgroundMusic() {
-            bgMusic.volume = 0.12;
-            
-            document.body.addEventListener('click', function initBGM() {
-                if (bgmEnabled && bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log('背景音樂播放失敗:', e));
-                }
-                document.body.removeEventListener('click', initBGM);
-            });
-        }
-        
-        bgmToggle.addEventListener('click', () => {
-            bgmEnabled = !bgmEnabled;
-            bgmIcon.className = bgmEnabled ? 'fas fa-music' : 'fas fa-music-slash';
-            
-            if (bgmEnabled) {
-                bgMusic.play().catch(e => console.log('背景音樂播放失敗:', e));
-            } else {
-                bgMusic.pause();
-            }
-        });
-        
-        setupBackgroundMusic();
-        
-        // 音效系統
         let soundEnabled = true;
-        const soundToggle = document.getElementById('sound-toggle');
-        const soundIcon = document.getElementById('sound-icon');
-        const soundStatus = document.getElementById('sound-status');
-        
+        let bgmEnabled = true;
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioContext;
         
         const soundBuffers = {};
         
-        function initSoundSystem() {
-            try {
-                audioContext = new AudioContext();
-                
-                soundBuffers.key = createBeep(800, 0.05);
-                soundBuffers.correct = createBeep(1200, 0.1);
-                soundBuffers.wrong = createBeep(400, 0.2);
-                soundBuffers.start = createBeep(1000, 0.2);
-                soundBuffers.end = createBeep(600, 0.3);
-                soundBuffers.button = createBeep(600, 0.1);
-                soundBuffers.timewarning = createBeep(300, 0.3);
-                
-                soundStatus.innerHTML = '<i class="fas fa-volume-up"></i> 音效系統已啟用';
-                soundStatus.className = 'sound-status';
-                
-                playSound('button');
-            } catch (e) {
-                soundStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> 音效初始化失敗: ${e.message}`;
-                soundStatus.className = 'sound-status error';
-                soundEnabled = false;
-            }
+        function setupBackgroundMusic() {
+            document.body.addEventListener('click', function initBGM() {
+                if (bgmEnabled && document.getElementById('bg-music').paused) {
+                    document.getElementById('bg-music').play().catch(e => console.log('背景音樂播放失敗:', e));
+                }
+                document.body.removeEventListener('click', initBGM);
+            });
         }
         
-        function createBeep(frequency, duration) {
-            if (!audioContext) return;
+        document.getElementById('bgm-toggle').addEventListener('click', () => {
+            bgmEnabled = !bgmEnabled;
+            const bgmIcon = document.getElementById('bgm-icon');
+            const bgmMusic = document.getElementById('bg-music');
             
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
+            if (bgmEnabled) {
+                bgmIcon.className = 'fas fa-music';
+                if (bgmMusic.paused) {
+                    bgmMusic.play().catch(e => console.log('背景音樂播放失敗:', e));
+                }
+            } else {
+                bgmIcon.className = 'fas fa-music-slash';
+                bgmMusic.pause();
+            }
+        });
+        
+        document.getElementById('sound-toggle').addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            const soundIcon = document.getElementById('sound-icon');
+            const soundStatus = document.getElementById('sound-status');
             
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
+            soundIcon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
             
-            oscillator.type = 'sine';
-            oscillator.frequency.value = frequency;
-            gainNode.gain.value = 0.3;
+            if (soundEnabled) {
+                soundStatus.innerHTML = '<i class="fas fa-volume-up"></i> 音效系統已啟用';
+                soundStatus.className = 'sound-status';
+                playSound('button');
+            } else {
+                soundStatus.innerHTML = '<i class="fas fa-volume-mute"></i> 音效已關閉';
+                soundStatus.className = 'sound-status error';
+            }
+        });
+        
+        function initSoundSystem() {
+            if (!AudioContext) return;
             
-            return { oscillator, gainNode, duration };
+            audioContext = new AudioContext();
+            
+            document.body.addEventListener('click', function initAudio() {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                document.body.removeEventListener('click', initAudio);
+            });
         }
         
         function playSound(type) {
-            if (!soundEnabled || !soundBuffers[type]) return;
+            if (!soundEnabled || !audioContext) return;
             
             try {
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
                 
-                const { oscillator, gainNode, duration } = soundBuffers[type];
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
                 
-                const newOscillator = audioContext.createOscillator();
-                const newGainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
                 
-                newOscillator.type = oscillator.type;
-                newOscillator.frequency.value = oscillator.frequency.value;
-                newGainNode.gain.value = gainNode.gain.value;
+                oscillator.type = 'sine';
+                gainNode.gain.value = 0.3;
                 
-                newOscillator.connect(newGainNode);
-                newGainNode.connect(audioContext.destination);
+                switch (type) {
+                    case 'correct':
+                        oscillator.frequency.value = 1200;
+                        break;
+                    case 'wrong':
+                        oscillator.frequency.value = 400;
+                        break;
+                    case 'timewarning':
+                        oscillator.frequency.value = 300;
+                        break;
+                    case 'button':
+                        oscillator.frequency.value = 600;
+                        break;
+                    case 'start':
+                        oscillator.frequency.value = 1000;
+                        break;
+                    case 'end':
+                        oscillator.frequency.value = 600;
+                        break;
+                    case 'key':
+                        oscillator.frequency.value = 800;
+                        break;
+                }
                 
-                newOscillator.start();
-                newOscillator.stop(audioContext.currentTime + duration);
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.15);
             } catch (e) {
                 console.error('播放音效失敗:', e);
             }
         }
         
-        soundToggle.addEventListener('click', () => {
-            soundEnabled = !soundEnabled;
-            soundIcon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
-            
-            soundStatus.innerHTML = soundEnabled 
-                ? '<i class="fas fa-volume-up"></i> 音效系統已啟用' 
-                : '<i class="fas fa-volume-mute"></i> 音效已關閉';
-                
-            playSound('button');
-        });
-        
-        setTimeout(initSoundSystem, 500);
+        setupBackgroundMusic();
+        initSoundSystem();
         
         // 遊戲邏輯
         const gameState = {
@@ -760,12 +682,10 @@
             userAnswers: [],
             correctAnswers: [],
             incorrectList: [],
-            startTime: null,
-            timerInterval: null,
-            elapsedTime: 0,
+            isTimeout: false,
             usedNumbers: new Set(),
             questionTimeLeft: 5,
-            isTimeout: false
+            elapsedTime: 0
         };
 
         const screens = {
@@ -793,8 +713,8 @@
         }
 
         function generateQuestions(count) {
-            const questions = [];
             const validHundreds = [2, 4, 6, 8];
+            const questions = [];
             
             for (let tenThousands = 1; tenThousands <= 9; tenThousands++) {
                 for (let thousands = 0; thousands <= 9; thousands++) {
@@ -820,9 +740,6 @@
         }
 
         function startGame(questionCount) {
-            clearInterval(gameState.timerInterval);
-            clearInterval(gameState.questionTimer);
-            
             gameState.totalQuestions = questionCount;
             gameState.currentQuestion = 1;
             gameState.score = 0;
@@ -834,51 +751,22 @@
             gameState.isTimeout = false;
             gameState.questionTimeLeft = 5;
             
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.questionTimer);
+            
             document.getElementById('current-question').textContent = '1';
             document.getElementById('total-questions').textContent = gameState.questions.length;
             document.getElementById('question').textContent = gameState.questions[0];
             document.getElementById('answer-input').value = '';
             document.getElementById('progress-fill').style.width = '0%';
             document.getElementById('question-timer').textContent = '5';
-            
-            showScreen(screens.game);
-            startTotalTimer();
-            startQuestionTimer();
-            
-            playSound('start');
-            
-            // 禁用下一題按鈕，直到輸入有效內容
-            document.getElementById('next-btn').disabled = true;
-        }
-
-        function startTotalTimer() {
-            gameState.startTime = new Date();
-            gameState.timerInterval = setInterval(() => {
-                const now = new Date();
-                gameState.elapsedTime = Math.floor((now - gameState.startTime) / 1000);
-            }, 1000);
-        }
-
-        function startQuestionTimer() {
-            gameState.questionTimeLeft = 5;
-            document.getElementById('question-timer').textContent = gameState.questionTimeLeft;
             document.getElementById('question-timer').className = 'timers';
             
-            gameState.questionTimer = setInterval(() => {
-                gameState.questionTimeLeft--;
-                document.getElementById('question-timer').textContent = gameState.questionTimeLeft;
-                
-                if (gameState.questionTimeLeft <= 2) {
-                    document.getElementById('question-timer').className = 'timers';
-                    playSound('timewarning');
-                }
-                
-                if (gameState.questionTimeLeft <= 0) {
-                    clearInterval(gameState.questionTimer);
-                    gameState.isTimeout = true;
-                    nextQuestion();
-                }
-            }, 1000);
+            showScreen(screens.game);
+            playSound('start');
+            
+            // 啟用下一題按鈕的監聽器
+            document.getElementById('next-btn').disabled = true;
         }
 
         function nextQuestion() {
@@ -906,6 +794,7 @@
                 
                 if (userAns === correctAnswer) {
                     gameState.score++;
+                    playSound('correct');
                 } else {
                     gameState.incorrectList.push({
                         question: currentNum,
@@ -913,6 +802,10 @@
                         correctAnswer: correctAnswer,
                         isTimeout: gameState.isTimeout
                     });
+                    // 答錯時播放音效，但超時未答不播放
+                    if (!gameState.isTimeout) {
+                        playSound('wrong');
+                    }
                 }
             }
             
@@ -927,7 +820,7 @@
             document.getElementById('question').textContent = gameState.questions[gameState.currentQuestion - 1];
             document.getElementById('answer-input').value = '';
             
-            // 重置題目計時器
+            // 重置計時器
             gameState.questionTimeLeft = 5;
             gameState.isTimeout = false;
             document.getElementById('question-timer').textContent = gameState.questionTimeLeft;
@@ -935,16 +828,13 @@
             
             updateProgressBar();
             startQuestionTimer();
-            
-            // 禁用下一題按鈕，直到輸入有效內容
-            document.getElementById('next-btn').disabled = true;
+            playSound('key');
         }
 
         function endGame() {
             clearInterval(gameState.timerInterval);
             clearInterval(gameState.questionTimer);
             showResults();
-            
             playSound('end');
         }
 
@@ -969,19 +859,15 @@
                 gameState.incorrectList.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'result-item';
-                    
-                    let html = `
+                    div.innerHTML = `
                         <div><strong>題目:</strong> ${item.question}</div>
                         <div><strong>正確答案:</strong> <span style="color:#e74c3c;">${item.correctAnswer}</span></div>
+                        ${item.userAnswer !== null ? `<div><strong>您的答案:</strong> ${item.userAnswer}</div>` : ''}
+                        ${item.userAnswer === null && item.isTimeout ? 
+                          `<div><strong>狀態:</strong> <span style="color:#e74c3c;">超時未答</span></div>` : 
+                         item.userAnswer === null ? 
+                          `<div><strong>狀態:</strong> <span style="color:#e74c3c;">未答</span></div>` : ''}
                     `;
-                    
-                    if (item.userAnswer !== null) {
-                        html += `<div><strong>您的答案:</strong> ${item.userAnswer}</div>`;
-                    } else if (item.isTimeout) {
-                        html += `<div><strong>狀態:</strong> <span style="color:#e74c3c;">超時未答</span></div>`;
-                    }
-                    
-                    div.innerHTML = html;
                     incorrectContainer.appendChild(div);
                 });
             }
@@ -994,9 +880,116 @@
             document.getElementById('progress-fill').style.width = `${progress}%`;
         }
 
+        function startTotalTimer() {
+            clearInterval(gameState.timerInterval);
+            gameState.startTime = new Date();
+            gameState.timerInterval = setInterval(() => {
+                const now = new Date();
+                gameState.elapsedTime = Math.floor((now - gameState.startTime) / 1000);
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            clearInterval(gameState.questionTimer);
+            gameState.questionTimeLeft = 5;
+            document.getElementById('question-timer').textContent = gameState.questionTimeLeft;
+            document.getElementById('question-timer').className = 'timers';
+            
+            gameState.questionTimer = setInterval(() => {
+                gameState.questionTimeLeft--;
+                document.getElementById('question-timer').textContent = gameState.questionTimeLeft;
+                
+                if (gameState.questionTimeLeft <= 2) {
+                    document.getElementById('question-timer').className = 'timers';
+                    playSound('timewarning');
+                }
+                
+                if (gameState.questionTimeLeft <= 0) {
+                    clearInterval(gameState.questionTimer);
+                    gameState.isTimeout = true;
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        // 事件監聽器
+        document.querySelectorAll('.btn[data-questions]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                playSound('button');
+                startGame(parseInt(btn.dataset.questions));
+            });
+        });
+        
+        document.querySelectorAll('.back-to-home, .back-to-home-result').forEach(btn => {
+            btn.addEventListener('click', () => {
+                playSound('button');
+                showScreen(screens.home);
+            });
+        });
+        
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            playSound('button');
+            showScreen(screens.home);
+        });
+        
+        document.getElementById('share-btn').addEventListener('click', shareToWechat);
+        
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+        
+        document.querySelectorAll('.key:not(#backspace):not(#clear)').forEach(key => {
+            key.addEventListener('click', () => {
+                playSound('key');
+                document.getElementById('answer-input').value += key.textContent;
+                document.getElementById('next-btn').disabled = false;
+            });
+        });
+        
+        document.getElementById('backspace').addEventListener('click', () => {
+            playSound('key');
+            const input = document.getElementById('answer-input');
+            input.value = input.value.slice(0, -1);
+            if (input.value === '') {
+                document.getElementById('next-btn').disabled = true;
+            }
+        });
+        
+        document.getElementById('clear').addEventListener('click', () => {
+            playSound('key');
+            document.getElementById('answer-input').value = '';
+            document.getElementById('next-btn').disabled = true;
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                playSound('key');
+                document.getElementById('answer-input').value += e.key;
+                document.getElementById('next-btn').disabled = false;
+            } else if (e.key === 'Backspace') {
+                playSound('key');
+                const input = document.getElementById('answer-input');
+                input.value = input.value.slice(0, -1);
+                if (input.value === '') {
+                    document.getElementById('next-btn').disabled = true;
+                }
+            } else if (e.key === 'Enter') {
+                if (document.getElementById('answer-input').value !== '') {
+                    nextQuestion();
+                }
+            }
+        });
+        
+        copyBtn.addEventListener('click', copyShareText);
+        closeModal.addEventListener('click', hideModal);
+        
+        // 點擊模態框外部關閉
+        shareModal.addEventListener('click', (e) => {
+            if (e.target === shareModal) {
+                hideModal();
+            }
+        });
+        
         function shareToWechat() {
             playSound('button');
-            
             const totalQuestions = gameState.questions.length;
             const accuracy = Math.round((gameState.score / totalQuestions) * 100);
             const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
@@ -1011,134 +1004,13 @@
         
         function copyShareText() {
             const textToCopy = shareText.textContent;
-            
-            const textArea = document.createElement("textarea");
-            textArea.value = textToCopy;
-            document.body.appendChild(textArea);
-            
-            textArea.select();
-            textArea.setSelectionRange(0, 99999);
-            
-            try {
-                const successful = document.execCommand('copy');
-                const msg = successful ? '已複製到剪貼板' : '複製失敗';
-                alert(msg);
-            } catch (e) {
-                console.error('複製失敗:', e);
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert('已複製到剪貼板');
+            }).catch(err => {
+                console.error('複製失敗:', err);
                 alert('複製失敗，請手動複製文本');
-            }
-            
-            document.body.removeChild(textArea);
+            });
         }
-
-        // 事件監聽器
-        document.querySelectorAll('.btn[data-questions]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                playSound('button');
-                startGame(parseInt(btn.dataset.questions));
-            });
-        });
-        
-        // 下一題按鈕
-        document.getElementById('next-btn').addEventListener('click', nextQuestion);
-        
-        // 重啟按鈕
-        document.getElementById('restart-btn').addEventListener('click', () => {
-            playSound('button');
-            showScreen(screens.home);
-        });
-        
-        // 分享按鈕
-        document.getElementById('share-btn').addEventListener('click', shareToWechat);
-        
-        // 分享模態框事件
-        copyBtn.addEventListener('click', copyShareText);
-        closeModal.addEventListener('click', hideModal);
-        
-        // 點擊模態框外部關閉
-        shareModal.addEventListener('click', (e) => {
-            if (e.target === shareModal) {
-                hideModal();
-            }
-        });
-        
-        // 添加返回首頁按鈕事件監聽器
-        document.querySelectorAll('.back-to-home').forEach(btn => {
-            btn.addEventListener('click', () => {
-                playSound('button');
-                showScreen(screens.home);
-            });
-        });
-        
-        // 數位鍵盤處理
-        document.querySelectorAll('.key:not(#backspace):not(#clear)').forEach(key => {
-            key.addEventListener('click', () => {
-                playSound('key');
-                document.getElementById('answer-input').value += key.textContent;
-                
-                // 輸入內容後檢查是否可以啟用下一題按鈕
-                if (document.getElementById('answer-input').value.trim() !== '') {
-                    document.getElementById('next-btn').disabled = false;
-                }
-            });
-        });
-        
-        document.getElementById('backspace').addEventListener('click', () => {
-            playSound('key');
-            const input = document.getElementById('answer-input');
-            input.value = input.value.slice(0, -1);
-            
-            // 輸入內容後檢查是否可以啟用下一題按鈕
-            if (document.getElementById('answer-input').value.trim() !== '') {
-                document.getElementById('next-btn').disabled = false;
-            } else {
-                document.getElementById('next-btn').disabled = true;
-            }
-        });
-        
-        document.getElementById('clear').addEventListener('click', () => {
-            playSound('key');
-            document.getElementById('answer-input').value = '';
-            document.getElementById('next-btn').disabled = true;
-        });
-        
-        // 鍵盤支援
-        document.addEventListener('keydown', (e) => {
-            if (e.key >= '0' && e.key <= '9') {
-                playSound('key');
-                document.getElementById('answer-input').value += e.key;
-                
-                // 輸入內容後檢查是否可以啟用下一題按鈕
-                if (document.getElementById('answer-input').value.trim() !== '') {
-                    document.getElementById('next-btn').disabled = false;
-                }
-            } else if (e.key === 'Backspace') {
-                playSound('key');
-                const input = document.getElementById('answer-input');
-                input.value = input.value.slice(0, -1);
-                
-                // 輸入內容後檢查是否可以啟用下一題按鈕
-                if (document.getElementById('answer-input').value.trim() !== '') {
-                    document.getElementById('next-btn').disabled = false;
-                } else {
-                    document.getElementById('next-btn').disabled = true;
-                }
-            } else if (e.key === 'Enter') {
-                if (document.getElementById('answer-input').value.trim() !== '') {
-                    nextQuestion();
-                }
-            }
-        });
-        
-        // 輸入框變化時檢查按鈕狀態
-        document.getElementById('answer-input').addEventListener('input', () => {
-            if (document.getElementById('answer-input').value.trim() !== '') {
-                document.getElementById('next-btn').disabled = false;
-            } else {
-                document.getElementById('next-btn').disabled = true;
-            }
-        });
     </script>
 </body>
 </html>
-
