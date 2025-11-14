@@ -282,13 +282,13 @@
             transition: all 0.3s;
             border: 2px solid #e0e0e0;
         }
-      
+    
         .mode-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             border-color: #3498db;
         }
-      
+    
         .mode-card h2 {
             color: #2c3e50;
             margin-top: 0;
@@ -297,20 +297,20 @@
             justify-content: center;
             gap: 10px;
         }
-      
+    
         .mode-card p {
             color: #7f8c8d;
             font-size: 0.9rem;
         }
-      
+    
         .mode-card.practice {
             background: linear-to bottom right, #e3f2fd, #bbdefb);
         }
-      
+    
         .mode-card.challenge {
             background: linear-to bottom right, #ffebee, #ffcdd2);
         }
-      
+    
         .difficulty-option {
             background: white;
             border-radius: 12px;
@@ -321,13 +321,13 @@
             transition: all 0.3s;
             border: 2px solid #e0e0e0;
         }
-      
+    
         .difficulty-option:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: #3498db;
         }
-      
+    
         .difficulty-option h3 {
             margin: 0 0 10px 0;
             color: #2c3e50;
@@ -336,39 +336,39 @@
             justify-content: center;
             gap: 8px;
         }
-      
+    
         .difficulty-option p {
             margin: 0;
             color: #7f8c8d;
             font-size: 0.85rem;
         }
-      
+    
         .result-badge {
             font-size: 3rem;
             margin: 15px 0;
             animation: zoomIn 0.5s ease;
         }
-      
+    
         .score-display, .accuracy-display {
             margin: 8px 0;
             font-weight: bold;
         }
-      
+
         .pulse {
             animation: pulse 0.3s ease;
         }
-      
+    
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-      
+    
         @keyframes zoomIn {
             0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-      
+    
         .sound-toggle {
             position: absolute;
             top: 15px;
@@ -385,11 +385,11 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
-      
+    
         .sound-toggle.muted i {
             color: #e74c3c;
         }
-      
+    
         .bgm-toggle {
             position: absolute;
             top: 15px;
@@ -406,11 +406,11 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
-      
+    
         .bgm-toggle.muted i {
             color: #e74c3c;
         }
-      
+    
         .back-home-btn {
             position: absolute;
             top: 15px;
@@ -426,17 +426,17 @@
             z-index: 10;
             transition: all 0.3s;
         }
-      
+    
         .back-home-btn:hover {
             background: #3498db;
             color: white;
             transform: scale(1.1);
         }
-      
+    
         .back-home-btn:active {
             transform: scale(0.95);
         }
-      
+    
         .modal {
             display: none;
             position: fixed;
@@ -449,7 +449,7 @@
             justify-content: center;
             align-items: center;
         }
-      
+    
         .modal-content {
             background: white;
             border-radius: 15px;
@@ -459,11 +459,11 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-      
+    
         .share-intro {
             margin-bottom: 20px;
         }
-      
+    
         .share-text {
             background: #f5f5f5;
             padding: 15px;
@@ -477,7 +477,7 @@
             max-height: 150px;
             overflow-y: auto;
         }
-      
+    
         .copy-btn {
             background: #3498db;
             color: white;
@@ -492,12 +492,12 @@
             gap: 5px;
             transition: all 0.3s;
         }
-      
+    
         .copy-btn:hover {
             background: #2980b9;
             transform: translateY(-2px);
         }
-      
+    
         .wx-tip {
             background: #e1f5fe;
             border-radius: 10px;
@@ -510,26 +510,7 @@
             justify-content: center;
             gap: 8px;
         }
-      
-        .close-btn {
-            background: #7f8c8d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-        }
-      
-        .close-btn:hover {
-            background: #95a5a6;
-        }
-      
+    
         .share-info {
             background: #e8f5e9;
             padding: 12px;
@@ -537,12 +518,12 @@
             margin: 15px 0;
             text-align: left;
         }
-      
+    
         .score-display, .accuracy-display {
             margin: 8px 0;
             font-weight: bold;
         }
-      
+    
         @media (max-width: 480px) {
             .container {
                 height: 93vh;
@@ -551,46 +532,46 @@
                 border-radius: 0;
                 padding: 10px;
             }
-          
+        
             h1 {
                 font-size: 1.3rem;
             }
-          
+        
             .question-container {
                 padding: 12px;
                 min-height: 85px;
             }
-          
+        
             .question {
                 font-size: 2.4rem;
             }
-          
+        
             .btn {
                 width: 120px;
                 padding: 10px 15px;
                 font-size: 0.9rem;
             }
-          
+        
             .key {
                 padding: 12px 5px;
                 font-size: 1.4rem;
             }
-          
+        
             .answer-input {
                 padding: 10px;
                 font-size: 1.4rem;
             }
-          
+        
             .bgm-toggle {
                 right: 55px;
             }
-          
+        
             .id-input {
                 font-size: 1.4rem;
                 padding: 12px;
             }
         }
-      
+    
         @supports (-webkit-overflow-scrolling: touch) {
             body {
                 overscroll-behavior: contain;
@@ -602,18 +583,18 @@
     <div class="sound-toggle" id="sound-toggle">
         <i class="fas fa-volume-up" id="sound-icon"></i>
     </div>
-  
+
     <div class="bgm-toggle" id="bgm-toggle">
         <i class="fas fa-music" id="bgm-icon"></i>
     </div>
-  
+
     <div class="container">
         <!-- 首頁 -->
         <div id="home-screen" class="screen active">
             <div>
                 <h1>95數背數小游戲</h1>
-                <div class="subtitle">提升心算能力 · 訓練快速反應</div>
-              
+                <div class="subtitle">提升心算能力 · 測試快速反應</div>
+            
                 <div class="instructions">
                     <h3><i class="fas fa-info-circle"></i> 遊戲說明</h3>
                     <p>1. 隨機出现100-9900的整百位數</p>
@@ -622,7 +603,7 @@
                     <p>4. 完成所有題目後可查看成績和錯題</p>
                     <p>示例：100 → 95，200 → 190</p>
                 </div>
-              
+            
                 <div class="btn-grid">
                     <button class="btn employee-btn" id="employee-btn">
                         <i class="fas fa-user"></i> 員工
@@ -632,7 +613,7 @@
                     </button>
                 </div>
             </div>
-          
+        
             <div class="wx-tip">
                 <i class="fas fa-mobile-alt"></i> 提示：此應用由PID製作
             </div>
@@ -647,13 +628,13 @@
             <div>
                 <h1><i class="fas fa-user-lock"></i> 員工登入</h1>
                 <div class="subtitle">請輸入6位數員工ID</div>
-              
+            
                 <div class="id-input-container">
                     <label class="id-input-label" for="employee-id">員工ID:</label>
                     <input type="text" id="employee-id" class="id-input" placeholder="輸入6位數ID" maxlength="6">
                     <p class="id-input-note">請輸入6位數字的員工ID</p>
                 </div>
-              
+            
                 <button class="btn" id="confirm-btn">
                     <i class="fas fa-check"></i> 確認
                 </button>
@@ -668,12 +649,12 @@
 
             <div>
                 <h1>請選擇遊戲模式</h1>
-              
+            
                 <div class="mode-card practice" id="practice-mode">
                     <h2><i class="fas fa-book-open"></i> 練習模式</h2>
                     <p>無時間壓力，自由練習心算能力</p>
                 </div>
-              
+            
                 <div class="mode-card challenge" id="challenge-mode">
                     <h2><i class="fas fa-trophy"></i> 挑戰模式</h2>
                     <p>限時挑戰，測試你的反應速度</p>
@@ -690,23 +671,23 @@
             <div>
                 <h1><i class="fas fa-book-open"></i> 練習模式</h1>
                 <div class="subtitle">選擇練習數值範圍</div>
-              
+            
                 <div class="difficulty-option" data-range="1">
                     <h3><i class="fas fa-layer-group"></i> 100至1900內容</h3>
                 </div>
-              
+            
                 <div class="difficulty-option" data-range="2">
                     <h3><i class="fas fa-layer-group"></i> 2100至3900內容</h3>
                 </div>
-              
+            
                 <div class="difficulty-option" data-range="3">
                     <h3><i class="fas fa-layer-group"></i> 4100至6900內容</h3>
                 </div>
-              
+            
                 <div class="difficulty-option" data-range="4">
                     <h3><i class="fas fa-layer-group"></i> 7100至8900內容</h3>
                 </div>
-              
+            
                 <div class="difficulty-option" data-range="5">
                     <h3><i class="fas fa-layer-group"></i> 9100至9900內容</h3>
                 </div>
@@ -722,17 +703,17 @@
             <div>
                 <h1><i class="fas fa-trophy"></i> 挑戰模式</h1>
                 <div class="subtitle">選擇挑戰難度</div>
-              
+            
                 <div class="difficulty-option" data-difficulty="basic">
                     <h3><i class="fas fa-star"></i> 基礎挑戰</h3>
                     <p>10秒/題 · 30題 · 適合新手</p>
                 </div>
-              
+            
                 <div class="difficulty-option" data-difficulty="advanced">
                     <h3><i class="fas fa-star-half-alt"></i> 進階挑戰</h3>
                     <p>7秒/題 · 50題 · 中等難度</p>
                 </div>
-              
+            
                 <div class="difficulty-option" data-difficulty="expert">
                     <h3><i class="fas fa-star"></i> 專家挑戰</h3>
                     <p>5秒/題 · 99題 · 高手專屬</p>
@@ -748,13 +729,13 @@
 
             <div>
                 <h1 id="game-title">95數背數小游戲</h1>
-              
+            
                 <div id="challenge-timer-container" style="display: none;">
                     <div class="challenge-timer">
                         <i class="fas fa-clock"></i> 剩餘時間: <span id="challenge-timer">10</span>秒
                     </div>
                 </div>
-              
+            
                 <div class="progress-container">
                     <div class="progress-text">第 <span id="current-question">1</span> 题 / 共 <span id="total-questions">10</span> 题</div>
                     <div class="progress-bar">
@@ -764,14 +745,14 @@
                         <i class="fas fa-clock"></i> 用時: <span id="timer">00:00</span>
                     </div>
                 </div>
-              
+            
                 <div class="question-container">
                     <div class="question" id="question">100</div>
                 </div>
-              
+            
                 <input type="text" class="answer-input" id="answer-input" placeholder="輸入95數答案" readonly>
             </div>
-          
+        
             <div>
                 <div class="keypad">
                     <button class="key">1</button>
@@ -787,7 +768,7 @@
                     <button class="key">0</button>
                     <button class="key" id="clear"><i class="fas fa-trash-alt"></i></button>
                 </div>
-              
+            
                 <div class="control-btn">
                     <button class="btn" id="next-btn"><i class="fas fa-arrow-right"></i> 下一题</button>
                 </div>
@@ -802,29 +783,29 @@
 
             <div>
                 <h1>挑戰完成！</h1>
-              
+            
                 <div id="result-badge" class="result-badge">
                     <i class="fas fa-crown" style="color: #FFD700;"></i>
                 </div>
-              
+            
                 <div class="score-display" style="font-size: 1.4rem; margin: 12px 0;">
                     得分：<span id="score" style="font-size: 1.8rem; color:#3498db;">0</span> / <span id="total" style="font-size: 1.8;">10</span>
                 </div>
-              
+            
                 <div class="accuracy-display" style="font-size: 1.2rem; margin-bottom: 15px;">
                     正確率：<span id="accuracy" style="font-size: 1.6rem; color:#e74c3c;">0</span>%
                 </div>
-              
-                <div class="timer" style="font-size: 1.2rem; margin-bottom: 12px;">
+            
+                <div class="timer" style="font-size: 1.2rem; margin: 6px 0;">
                     <i class="fas fa-stopwatch"></i> 總用時: <span id="total-time">00:00</span>
                 </div>
-              
+            
                 <div id="challenge-result" style="display: none;">
-                    <div class="timer" style="font-size: 1.2rem; margin-bottom: 12px;">
+                    <div class="timer" style="font-size: 1.2rem; margin: 6px 0;">
                         <i class="fas fa-stopwatch"></i> 平均答題時間: <span id="avg-time">0</span>秒
                     </div>
                 </div>
-              
+            
                 <div class="share-info">
                     <h4>分享成績</h4>
                     <div class="share-text" id="share-content">我完成了95數背數小游戲，得分：0/10，正確率：0%！</div>
@@ -832,7 +813,7 @@
                         <i class="fas fa-copy"></i> 複製分享內容
                     </button>
                 </div>
-              
+            
                 <div class="wx-tip">
                     <i class="fab fa-weixin"></i> 微信分享提示：長按識別二維碼或複製鏈接分享
                 </div>
@@ -893,19 +874,19 @@
         // 音效系統
         function playSound(type) {
             if (!gameState.isSoundOn) return;
-          
+        
             // 使用現代瀏覽器的Web Audio API
             if (typeof AudioContext !== 'undefined') {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioCtx.createOscillator();
                 const gainNode = audioCtx.createGain();
-              
+            
                 oscillator.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
-              
+            
                 oscillator.type = 'sine';
                 gainNode.gain.value = 0.3;
-              
+            
                 if (type === 'key') {
                     oscillator.frequency.value = 800;
                 } else if (type === 'correct') {
@@ -915,7 +896,7 @@
                 } else if (type === 'button') {
                     oscillator.frequency.value = 700;
                 }
-              
+            
                 oscillator.start();
                 oscillator.stop(audioCtx.currentTime + 0.1);
             }
@@ -926,7 +907,7 @@
             // 初始化音效狀態
             gameState.isSoundOn = true;
             gameState.isBgmOn = true;
-          
+        
             // 音效按鈕事件
             document.getElementById('sound-toggle').addEventListener('click', function() {
                 gameState.isSoundOn = !gameState.isSoundOn;
@@ -934,14 +915,14 @@
                 icon.className = gameState.isSoundOn ? 'fas fa-volume-up' : 'fas fa-volume-mute';
                 playSound('button');
             });
-          
+        
             // 背景音樂按鈕事件
             document.getElementById('bgm-toggle').addEventListener('click', function() {
                 gameState.isBgmOn = !gameState.isBgmOn;
                 const icon = this.querySelector('i');
                 icon.className = gameState.isBgmOn ? 'fas fa-music' : 'fas fa-music-slash';
                 playSound('button');
-              
+            
                 const bgm = document.getElementById('bg-music');
                 if (gameState.isBgmOn) {
                     bgm.play().catch(e => console.log('背景音樂播放失敗:', e));
@@ -949,74 +930,44 @@
                     bgm.pause();
                 }
             });
-          
+        
             // 綁定按鈕事件
             document.getElementById('employee-btn').addEventListener('click', function() {
                 playSound('button');
                 showScreen(screens.employee);
             });
-          
+        
             document.getElementById('visitor-btn').addEventListener('click', function() {
                 playSound('button');
                 showScreen(screens.gameMode);
             });
-          
+        
             document.getElementById('back-to-home').addEventListener('click', goToHomeScreen);
             document.getElementById('back-to-home-from-mode').addEventListener('click', goToHomeScreen);
             document.getElementById('back-to-home-from-game').addEventListener('click', goToHomeScreen);
             document.getElementById('back-to-home-from-result').addEventListener('click', goToHomeScreen);
-          
-            // 員工ID輸入驗證
-            const employeeIdInput = document.getElementById('employee-id');
-            employeeIdInput.addEventListener('input', function() {
-                // 只允許數字輸入
-                this.value = this.value.replace(/[^0-9]/g, '');
-              
-                // 限制6位數
-                if (this.value.length > 6) {
-                    this.value = this.value.slice(0, 6);
-                }
+            document.getElementById('back-to-mode').addEventListener('click', function() {
+                playSound('button');
+                showScreen(screens.gameMode);
             });
-          
-            // 確認按鈕
-            document.getElementById('confirm-btn').addEventListener('click', function() {
-                const employeeId = employeeIdInput.value.trim();
-              
-                // 驗證6位數字
-                if (employeeId.length === 6 && /^[0-9]+$/.test(employeeId)) {
-                    gameState.employeeId = employeeId; // 保存員工ID
-                    playSound('correct');
-                    showScreen(screens.gameMode);
-                } else {
-                    playSound('wrong');
-                    alert('請輸入6位數字員工ID');
-                }
+            document.getElementById('back-to-mode-challenge').addEventListener('click', function() {
+                playSound('button');
+                showScreen(screens.gameMode);
             });
-          
+        
             // 遊戲模式選擇
             document.getElementById('practice-mode').addEventListener('click', function() {
                 playSound('button');
                 gameState.mode = 'practice';
                 showScreen(screens.practice);
             });
-          
+        
             document.getElementById('challenge-mode').addEventListener('click', function() {
                 playSound('button');
                 gameState.mode = 'challenge';
                 showScreen(screens.challenge);
             });
-          
-            // 返回按鈕
-            document.getElementById('back-to-mode').addEventListener('click', function() {
-                playSound('button');
-                showScreen(screens.gameMode);
-            });
-          
-            document.getElementById('back-to-mode-challenge').addEventListener('click', function() {
-                playSound('button');
-                showScreen(screens.gameMode);
-            });
-          
+        
             // 練習難度選擇
             document.querySelectorAll('#practice-screen .difficulty-option').forEach(option => {
                 option.addEventListener('click', function() {
@@ -1025,7 +976,7 @@
                     startGame();
                 });
             });
-          
+        
             // 挑戰難度選擇
             document.querySelectorAll('#challenge-screen .difficulty-option').forEach(option => {
                 option.addEventListener('click', function() {
@@ -1034,7 +985,7 @@
                     startGame();
                 });
             });
-          
+        
             // 遊戲按鈕事件
             document.querySelectorAll('#game-screen .key').forEach(button => {
                 button.addEventListener('click', function() {
@@ -1042,7 +993,7 @@
                     document.getElementById('answer-input').value += this.textContent;
                 });
             });
-          
+        
             // 退格和清除按鈕
             document.getElementById('backspace').addEventListener('click', function() {
                 playSound('key');
@@ -1054,10 +1005,10 @@
                 playSound('key');
                 document.getElementById('answer-input').value = '';
             });
-          
+        
             // 下一題按鈕
             document.getElementById('next-btn').addEventListener('click', nextQuestion);
-          
+        
             // 輔助函數
             function calculate95Percent(number) {
                 return Math.floor(number * 0.95);
@@ -1066,7 +1017,7 @@
             function startGame() {
                 clearInterval(gameState.timerInterval);
                 clearInterval(gameState.challengeTimerInterval);
-              
+            
                 gameState.currentQuestion = 1;
                 gameState.score = 0;
                 gameState.questions = [];
@@ -1076,7 +1027,7 @@
                 gameState.elapsedTime = 0;
                 gameState.challengeTimes = [];
                 gameState.currentSeed = Math.floor(Math.random() * 10000);
-              
+            
                 if (gameState.mode === 'practice') {
                     // 練習模式：使用指定的數值範圍
                     const range = practiceRanges[gameState.practiceRange];
@@ -1089,53 +1040,53 @@
                         gameState.questions.push(num);
                     }
                 }
-              
+            
                 // 洗牌算法打亂順序
                 for (let i = gameState.questions.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [gameState.questions[i], gameState.questions[j]] = [gameState.questions[j], gameState.questions[i]];
                 }
-              
+            
                 // 取前totalQuestions個不重複的數字
                 gameState.questions = gameState.questions.slice(0, gameState.totalQuestions);
-              
+            
                 gameState.startTime = new Date();
                 gameState.timerInterval = setInterval(() => {
                     gameState.elapsedTime = Math.floor((new Date() - gameState.startTime) / 1000);
                     updateTimerDisplay();
                     updateProgressBar();
                 }, 1000);
-              
+            
                 if (gameState.mode === 'challenge') {
                     gameState.challengeTimeLeft = 
                         gameState.difficulty === 'basic' ? 10 : 
                         gameState.difficulty === 'advanced' ? 7 : 5;
-                  
+                
                     document.getElementById('challenge-timer-container').style.display = 'block';
                     document.getElementById('challenge-timer').textContent = gameState.challengeTimeLeft;
-                  
+                
                     gameState.challengeTimerInterval = setInterval(() => {
                         gameState.challengeTimeLeft--;
                         document.getElementById('challenge-timer').textContent = gameState.challengeTimeLeft;
-                      
+                    
                         if (gameState.challengeTimeLeft <= 0) {
                             clearInterval(gameState.challengeTimerInterval);
-                          
+                        
                             // 記錄本題用時
                             const questionStartTime = gameState.startTime + (gameState.elapsedTime * 1000);
                             const questionTime = Math.floor((new Date() - questionStartTime) / 1000);
                             gameState.challengeTimes.push(questionTime);
-                          
+                        
                             nextQuestion();
                         }
                     }, 1000);
                 }
-              
+            
                 showScreen(screens.game);
                 document.getElementById('game-title').textContent = 
                     gameState.mode === 'practice' ? "練習模式" : 
                     "挑戰模式 - " + getDifficultyName();
-              
+            
                 document.getElementById('current-question').textContent = '1';
                 document.getElementById('total-questions').textContent = gameState.questions.length;
                 document.getElementById('question').textContent = gameState.questions[0];
@@ -1151,16 +1102,16 @@
                     const questionTime = Math.floor((new Date() - questionStartTime) / 1000);
                     gameState.challengeTimes.push(questionTime);
                 }
-              
+            
                 // 提交當前答案
                 const userAnswer = document.getElementById('answer-input').value;
                 if (userAnswer) {
                     playSound('key');
-                  
+                
                     const currentNum = gameState.questions[gameState.currentQuestion - 1];
                     gameState.userAnswers.push(parseInt(userAnswer));
                     gameState.correctAnswers.push(calculate95Percent(currentNum));
-                  
+                
                     if (parseInt(userAnswer) === calculate95Percent(currentNum)) {
                         gameState.score++;
                         playSound('correct');
@@ -1190,76 +1141,76 @@
                     document.getElementById('answer-input').classList.add('pulse');
                     document.getElementById('answer-input').style.backgroundColor = '#ffebee';
                 }
-              
+            
                 // 進入下一題
                 gameState.currentQuestion++;
-              
+            
                 if (gameState.currentQuestion > gameState.questions.length) {
                     endGame();
                     return;
                 }
-              
+            
                 document.getElementById('current-question').textContent = gameState.currentQuestion;
                 document.getElementById('question').textContent = gameState.questions[gameState.currentQuestion - 1];
                 document.getElementById('answer-input').value = '';
                 document.getElementById('answer-input').style.backgroundColor = '';
-              
+            
                 // 如果是挑戰模式，重置倒計時
                 if (gameState.mode === 'challenge') {
                     gameState.challengeTimeLeft = 
                         gameState.difficulty === 'basic' ? 10 : 
                         gameState.difficulty === 'advanced' ? 7 : 5;
                     document.getElementById('challenge-timer').textContent = gameState.challengeTimeLeft;
-                  
+                
                     // 清除之前的定時器，設置新的
                     clearInterval(gameState.challengeTimerInterval);
                     gameState.challengeTimerInterval = setInterval(() => {
                         gameState.challengeTimeLeft--;
                         document.getElementById('challenge-timer').textContent = gameState.challengeTimeLeft;
-                      
+                    
                         if (gameState.challengeTimeLeft <= 0) {
                             clearInterval(gameState.challengeTimerInterval);
-                          
+                        
                             // 記錄用時
                             const questionStartTime = gameState.startTime + (gameState.elapsedTime * 1000);
                             const questionTime = Math.floor((new Date() - questionStartTime) / 1000);
                             gameState.challengeTimes.push(questionTime);
-                          
+                        
                             nextQuestion();
                         }
                     }, 1000);
                 }
-              
+            
                 updateProgressBar();
             }
           
             function endGame() {
                 clearInterval(gameState.timerInterval);
                 clearInterval(gameState.challengeTimerInterval);
-              
+            
                 showScreen(screens.result);
-              
+            
                 const totalQuestions = gameState.questions.length;
                 const accuracy = Math.round((gameState.score / totalQuestions) * 100);
-              
+            
                 document.getElementById('score').textContent = gameState.score;
                 document.getElementById('total').textContent = totalQuestions;
                 document.getElementById('accuracy').textContent = accuracy;
-              
+            
                 document.getElementById('share-content').textContent = 
                     `我完成了95數背數小游戲，得分：${gameState.score}/${totalQuestions}，正確率：${accuracy}%！`;
-              
+            
                 // 挑戰模式顯示額外信息
                 const challengeResult = document.getElementById('challenge-result');
                 if (gameState.mode === 'challenge') {
                     challengeResult.style.display = 'block';
-                  
+                
                     const avgTime = gameState.challengeTimes.reduce((a, b) => a + b, 0) / gameState.challengeTimes.length;
                     document.getElementById('avg-time').textContent = avgTime.toFixed(1);
                 } else {
                     challengeResult.style.display = 'none';
                 }
-              
+            
                 // 更新結果徽章
                 const badge = document.getElementById('result-badge');
                 if (accuracy >= 90) {
@@ -1272,7 +1223,7 @@
                     badge.innerHTML = '<i class="fas fa-redo" style="color: #8B4513;"></i>';
                     badge.title = "多加練習！";
                 }
-              
+            
                 const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
                 const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
                 document.getElementById('total-time').textContent = `${minutes}:${seconds}`;
@@ -1297,6 +1248,15 @@
                     default: return '';
                 }
             }
+          
+            // 練習範圍定義
+            const practiceRanges = {
+                1: { min: 100, max: 1900 },
+                2: { min: 2100, max: 3900 },
+                3: { min: 4100, max: 6900 },
+                4: { min: 7100, max: 8900 },
+                5: { min: 9100, max: 9900 }
+            };
         });
     </script>
 </body>
