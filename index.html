@@ -6,7 +6,7 @@
     <title>95數背數小游戲 - 練習模式優化版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 基礎樣式 */
+        /* 基礎樣式保持不變 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -132,16 +132,19 @@
             justify-content: center;
             margin-top: 10px;
         }
-
-        /* 員工/訪客按鈕樣式 */
-        .employee-btn {
+        
+        /* 新模式選擇按鈕樣式 */
+        .mode-select-btn {
             background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            width: 100%;
+            max-width: 300px;
+            margin: 15px 0;
         }
         
-        .visitor-btn {
+        .visitor-mode-btn {
             background: linear-gradient(45deg, #2ecc71, #27ae60);
         }
-        
+
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -256,47 +259,6 @@
         .answer-input:focus {
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-
-        /* 員工輸入樣式 */
-        .employee-input-container {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .employee-input {
-            width: 90%;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 2px solid #3498db;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        
-        .id-scanner {
-            width: 90%;
-            height: 150px;
-            background: #f8f9fa;
-            border: 2px dashed #3498db;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .employee-mode-title {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            text-align: center;
         }
         
         .share-btn {
@@ -605,11 +567,11 @@
                 </div>
                 
                 <div class="btn-grid">
-                    <button class="btn employee-btn" id="employee-btn">
-                        <i class="fas fa-user"></i> 員工
+                    <button class="btn mode-select-btn" id="employee-btn">
+                        <i class="fas fa-user"></i> 員工模式
                     </button>
-                    <button class="btn visitor-btn" id="visitor-btn">
-                        <i class="fas fa-users"></i> 訪客
+                    <button class="btn mode-select-btn visitor-mode-btn" id="visitor-btn">
+                        <i class="fas fa-users"></i> 訪客模式
                     </button>
                 </div>
             </div>
@@ -748,7 +710,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 遊戲頁 -->
         <div id="game-screen" class="screen">
             <div class="back-home-btn" id="back-home-game">
@@ -900,6 +861,36 @@
     </audio>
 
     <script>
+		        // 背景音樂系統
+        let bgmEnabled = true;
+        const bgmToggle = document.getElementById('bgm-toggle');
+        const bgmIcon = document.getElementById('bgm-icon');
+        const bgMusic = document.getElementById('bg-music');
+        
+        function setupBackgroundMusic() {
+            bgMusic.volume = 0.10;
+            
+            document.body.addEventListener('click', function initBGM() {
+                if (bgmEnabled && bgMusic.paused) {
+                    bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
+                }
+                document.body.removeEventListener('click', initBGM);
+            });
+        }
+        
+        setupBackgroundMusic();
+        
+        bgmToggle.addEventListener('click', () => {
+            bgmEnabled = !bgmEnabled;
+            bgmIcon.className = bgmEnabled ? 'fas fa-music' : 'fas fa-music-slash';
+            
+            if (bgmEnabled) {
+                bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
+            } else {
+                bgMusic.pause();
+            }
+        });
+
         // 音效系統
         let soundEnabled = true;
         const soundToggle = document.getElementById('sound-toggle');
@@ -986,35 +977,7 @@
                 : '<i class="fas fa-volume-mute"></i> 音效已关闭';
         });
 
-        // 背景音樂系統
-        let bgmEnabled = true;
-        const bgmToggle = document.getElementById('bgm-toggle');
-        const bgmIcon = document.getElementById('bgm-icon');
-        const bgMusic = document.getElementById('bg-music');
-        
-        function setupBackgroundMusic() {
-            bgMusic.volume = 0.10;
-            
-            document.body.addEventListener('click', function initBGM() {
-                if (bgmEnabled && bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
-                }
-                document.body.removeEventListener('click', initBGM);
-            });
-        }
-        
-        setupBackgroundMusic();
-        
-        bgmToggle.addEventListener('click', () => {
-            bgmEnabled = !bgmEnabled;
-            bgmIcon.className = bgmEnabled ? 'fas fa-music' : 'fas fa-music-slash';
-            
-            if (bgmEnabled) {
-                bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
-            } else {
-                bgMusic.pause();
-            }
-        });
+        setTimeout(initSoundSystem, 500);
 
         // 遊戲邏輯
         const gameState = {
@@ -1123,14 +1086,483 @@
             showScreen(screens.challenge);
         });
 
-        // 其餘遊戲邏輯保持不變
-        // ... 原有遊戲邏輯代碼 ...
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            initSoundSystem();
-            playSound('button');
+// 練習模式選擇
+        document.querySelectorAll('#practice-screen .difficulty-option').forEach(option => {
+            option.addEventListener('click', function() {
+                gameState.mode = 'practice';
+                gameState.practiceRange = parseInt(this.dataset.range);
+                startGame();
+            });
         });
+
+        // 挑戰模式選擇
+        document.querySelectorAll('#challenge-screen .difficulty-option').forEach(option => {
+            option.addEventListener('click', function() {
+                gameState.mode = 'challenge';
+                gameState.difficulty = this.dataset.difficulty;
+                
+                // 根據難度設置題目数量和時間限制
+                switch(gameState.difficulty) {
+                    case 'basic':
+                        gameState.totalQuestions = 30;
+                        gameState.challengeTimeLeft = 10;
+                        break;
+                    case 'advanced':
+                        gameState.totalQuestions = 50;
+                        gameState.challengeTimeLeft = 7;
+                        break;
+                    case 'expert':
+                        gameState.totalQuestions = 99;
+                        gameState.challengeTimeLeft = 5;
+                        break;
+                }
+                
+                startGame();
+            });
+        });
+
+        // 生成指定範圍內的不重複整百數題目
+        function generateQuestions() {
+            const questions = [];
+            let allNumbers = [];
+            
+            if (gameState.mode === 'practice') {
+                // 練習模式：使用指定的數值範圍
+                const range = practiceRanges[gameState.practiceRange];
+                // 生成範圍內的所有整百數
+                for (let num = range.min; num <= range.max; num += 100) {
+                    allNumbers.push(num);
+                }
+                gameState.totalQuestions = 10; // 練習模式固定10題
+            } else {
+                // 挑戰模式：使用預設範圍 (100-9900)
+                for (let num = 100; num <= 9900; num += 100) {
+                    allNumbers.push(num);
+                }
+            }
+            
+            // 重置已用數字集
+            gameState.usedNumbers.clear();
+            
+            // 洗牌算法打亂數組
+            for (let i = allNumbers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
+            }
+            
+            // 取前totalQuestions個不重複的數字
+            for (let i = 0; i < gameState.totalQuestions; i++) {
+                const num = allNumbers[i];
+                questions.push(num);
+                gameState.usedNumbers.add(num);
+            }
+            
+            return questions;
+        }
+
+        // 計算95折答案
+        function calculate95Percent(number) {
+            return Math.floor(number * 0.95);
+        }
+
+        // 開始計時器
+        function startTimer() {
+            gameState.startTime = new Date();
+            gameState.timerInterval = setInterval(() => {
+                const now = new Date();
+                gameState.elapsedTime = Math.floor((now - gameState.startTime) / 1000);
+                updateTimerDisplay();
+            }, 1000);
+        }
+        
+        // 挑戰模式計時器
+        function startChallengeTimer() {
+            document.getElementById('challenge-timer-container').style.display = 'block';
+            document.getElementById('challenge-timer').textContent = gameState.challengeTimeLeft;
+            
+            // 記錄當前題目的開始時間
+            const questionStartTime = new Date();
+            
+            gameState.challengeTimerInterval = setInterval(() => {
+                gameState.challengeTimeLeft--;
+                document.getElementById('challenge-timer').textContent = gameState.challengeTimeLeft;
+                
+                if (gameState.challengeTimeLeft <= 0) {
+                    clearInterval(gameState.challengeTimerInterval);
+                    
+                    // 記錄本題用時
+                    const questionTime = Math.floor((new Date() - questionStartTime) / 1000);
+                    gameState.challengeTimes.push(questionTime);
+                    
+                    // 自動提交當前答案
+                    const userAnswer = document.getElementById('answer-input').value;
+                    if (!userAnswer) {
+                        // 如果沒有輸入，視為錯誤
+                        gameState.userAnswers.push(null);
+                        gameState.correctAnswers.push(calculate95Percent(gameState.questions[gameState.currentQuestion - 1]));
+                        gameState.incorrectList.push({
+                            question: gameState.questions[gameState.currentQuestion - 1],
+                            userAnswer: null,
+                            correctAnswer: calculate95Percent(gameState.questions[gameState.currentQuestion - 1])
+                        });
+                    }
+                    
+                    // 進入下一題
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        // 更新計時器顯示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }
+
+        // 開始新遊戲
+        function startGame() {
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.challengeTimerInterval);
+            
+            gameState.currentQuestion = 1;
+            gameState.score = 0;
+            gameState.questions = generateQuestions();
+            gameState.userAnswers = [];
+            gameState.correctAnswers = [];
+            gameState.incorrectList = [];
+            gameState.elapsedTime = 0;
+            gameState.challengeTimes = [];
+            
+            document.getElementById('current-question').textContent = '1';
+            document.getElementById('total-questions').textContent = gameState.questions.length;
+            document.getElementById('question').textContent = gameState.questions[0];
+            document.getElementById('answer-input').value = '';
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('next-btn').disabled = true;
+            
+            // 設置遊戲標題
+            if (gameState.mode === 'challenge') {
+                document.getElementById('game-title').innerHTML = `<i class="fas fa-trophy"></i> 挑戰模式 - ${getDifficultyName()}`;
+            } else {
+                document.getElementById('game-title').textContent = "練習模式";
+            }
+            
+            showScreen(screens.game);
+            startTimer();
+            updateProgressBar();
+            playSound('start');
+            
+            // 如果是挑戰模式，啟動倒計時
+            if (gameState.mode === 'challenge') {
+                startChallengeTimer();
+            }
+        }
+        
+        // 獲取難度名稱
+        function getDifficultyName() {
+            switch(gameState.difficulty) {
+                case 'basic': return '基礎';
+                case 'advanced': return '進階';
+                case 'expert': return '專家';
+                default: return '';
+            }
+        }
+
+        // 更新進度條
+        function updateProgressBar() {
+            const progress = ((gameState.currentQuestion - 1) / gameState.questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+
+        // 下一題（直接提交答案）
+        function nextQuestion() {
+            clearInterval(gameState.challengeTimerInterval);
+            
+            const userAnswer = document.getElementById('answer-input').value;
+            
+            // 記錄本題用時（挑戰模式）
+            if (gameState.mode === 'challenge') {
+                const questionStartTime = gameState.startTime + (gameState.elapsedTime * 1000);
+                const questionTime = Math.floor((new Date() - questionStartTime) / 1000);
+                gameState.challengeTimes.push(questionTime);
+            }
+            
+            if (userAnswer) {
+                playSound('key');
+                
+                const currentNum = gameState.questions[gameState.currentQuestion - 1];
+                const correctAnswer = calculate95Percent(currentNum);
+                
+                gameState.userAnswers.push(parseInt(userAnswer));
+                gameState.correctAnswers.push(correctAnswer);
+                
+                if (parseInt(userAnswer) === correctAnswer) {
+                    gameState.score++;
+                    playSound('correct');
+                    document.getElementById('answer-input').classList.add('pulse');
+                    document.getElementById('answer-input').style.backgroundColor = '#e8f5e9';
+                    setTimeout(() => {
+                        document.getElementById('answer-input').classList.remove('pulse');
+                    }, 300);
+                } else {
+                    gameState.incorrectList.push({
+                        question: currentNum,
+                        userAnswer: parseInt(userAnswer),
+                        correctAnswer: correctAnswer
+                    });
+                    playSound('wrong');
+                    document.getElementById('answer-input').classList.add('pulse');
+                    document.getElementById('answer-input').style.backgroundColor = '#ffebee';
+                    setTimeout(() => {
+                        document.getElementById('answer-input').classList.remove('pulse');
+                    }, 300);
+                }
+            }
+            
+            // 進入下一題
+            gameState.currentQuestion++;
+            
+            if (gameState.currentQuestion > gameState.questions.length) {
+                endGame();
+                return;
+            }
+            
+            document.getElementById('current-question').textContent = gameState.currentQuestion;
+            document.getElementById('question').textContent = gameState.questions[gameState.currentQuestion - 1];
+            document.getElementById('answer-input').value = '';
+            document.getElementById('answer-input').style.backgroundColor = '';
+            
+            updateProgressBar();
+            document.getElementById('next-btn').disabled = true;
+            
+            // 如果是挑戰模式，重置倒計時
+            if (gameState.mode === 'challenge') {
+                switch(gameState.difficulty) {
+                    case 'basic': gameState.challengeTimeLeft = 10; break;
+                    case 'advanced': gameState.challengeTimeLeft = 7; break;
+                    case 'expert': gameState.challengeTimeLeft = 5; break;
+                }
+                startChallengeTimer();
+            }
+        }
+
+        // 結束遊戲
+        function endGame() {
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.challengeTimerInterval);
+            showResults();
+            playSound('end');
+        }
+
+        // 顯示結果
+        function showResults() {
+            const totalQuestions = gameState.questions.length;
+            const accuracy = Math.round((gameState.score / totalQuestions) * 100);
+            
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('total').textContent = totalQuestions;
+            document.getElementById('accuracy').textContent = accuracy;
+            
+            const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
+            document.getElementById('total-time').textContent = `${minutes}:${seconds}`;
+            
+            // 更新結果徽章
+            const badge = document.getElementById('result-badge');
+            if (accuracy >= 90) {
+                badge.innerHTML = '<i class="fas fa-crown" style="color: #FFD700;"></i>';
+                badge.title = "王者級別！";
+            } else if (accuracy >= 70) {
+                badge.innerHTML = '<i class="fas fa-star" style="color: #C0C0C0;"></i>';
+                badge.title = "表現優異！";
+            } else if (accuracy >= 50) {
+                badge.innerHTML = '<i class="fas fa-check-circle" style="color: #CD7F32;"></i>';
+                badge.title = "繼續努力！";
+            } else {
+                badge.innerHTML = '<i class="fas fa-redo" style="color: #8B4513;"></i>';
+                badge.title = "多加練習！";
+            }
+            
+            // 挑戰模式顯示額外信息
+            const challengeResult = document.getElementById('challenge-result');
+            if (gameState.mode === 'challenge') {
+                challengeResult.style.display = 'block';
+                const avgTime = gameState.challengeTimes.reduce((a, b) => a + b, 0) / gameState.challengeTimes.length;
+                document.getElementById('avg-time').textContent = avgTime.toFixed(1);
+            } else {
+                challengeResult.style.display = 'none';
+            }
+            
+            const incorrectContainer = document.getElementById('incorrect-answers');
+            incorrectContainer.innerHTML = '';
+            
+            if (gameState.incorrectList.length === 0) {
+                incorrectContainer.innerHTML = '<div class="result-item" style="text-align:center; background:#e8f5e9; color:#2e7d32;">太棒了！全部答对！🎉</div>';
+            } else {
+                gameState.incorrectList.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item incorrect';
+                    div.innerHTML = `
+                        <div><strong>題目:</strong> ${item.question}</div>
+                        <div><strong>您的答案:</strong> ${item.userAnswer || '未作答'}</div>
+                        <div><strong>正確答案:</strong> <span style="color:#e74c3c;">${item.correctAnswer}</span></div>
+                    `;
+                    incorrectContainer.appendChild(div);
+                });
+            }
+            
+            showScreen(screens.result);
+        }
+
+        // 生成分享文案
+        function generateShareText() {
+            const modeText = gameState.mode === 'challenge' 
+                ? `【挑戰模式·${getDifficultyName()}】` 
+                : '【練習模式】';
+            
+            const accuracy = Math.round((gameState.score / gameState.questions.length) * 100);
+            const timeMinutes = Math.floor(gameState.elapsedTime / 60);
+            const timeSeconds = gameState.elapsedTime % 60;
+            
+            return `我在95數背數遊戲中${modeText}獲得${gameState.score}/${gameState.questions.length}分！
+正確率：${accuracy}%
+用時：${timeMinutes}分${timeSeconds}秒
+
+快來挑戰你的心算能力！`;
+        }
+
+        // 檢測是否在微信環境
+        function isWechat() {
+            return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
+        }
+
+        // 分享到微信
+        function shareToWechat() {
+            playSound('button');
+            
+            // 填充分享信息
+            document.getElementById('share-score').textContent = gameState.score;
+            document.getElementById('share-total').textContent = gameState.questions.length;
+            
+            const accuracy = Math.round((gameState.score / gameState.questions.length) * 100);
+            document.getElementById('share-accuracy').textContent = accuracy;
+            
+            const shareText = generateShareText();
+            document.getElementById('share-text').textContent = shareText;
+            
+            // 檢測微信環境
+            if (isWechat()) {
+                document.getElementById('wx-instructions').style.display = 'block';
+            } else {
+                document.getElementById('wx-instructions').style.display = 'none';
+            }
+            
+            // 顯示分享模態框
+            document.getElementById('share-modal').style.display = 'flex';
+        }
+
+        // 複製分享內容
+        function copyShareText() {
+            const shareText = document.getElementById('share-text').textContent;
+            navigator.clipboard.writeText(shareText).then(() => {
+                playSound('correct');
+                alert('分享內容已複製到剪貼板！');
+            }).catch(err => {
+                console.error('複製失敗:', err);
+                alert('複製失敗，請手動複製分享內容');
+            });
+        }
+
+        // 關閉模態框
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('share-modal').style.display = 'none';
+        });
+
+        // 綁定分享按鈕
+        document.getElementById('share-btn').addEventListener('click', shareToWechat);
+        
+        // 綁定複製按鈕
+        document.getElementById('copy-btn').addEventListener('click', copyShareText);
+
+        // 微信環境特殊處理
+        if (isWechat()) {
+            document.querySelector('.wx-tip').style.display = 'flex';
+        } else {
+            document.querySelector('.wx-tip').style.display = 'none';
+        }
+
+        // 輸入框事件監聽
+        const answerInput = document.getElementById('answer-input');
+        answerInput.addEventListener('input', function() {
+            document.getElementById('next-btn').disabled = this.value === '';
+        });
+
+        // 數字鍵盤處理
+        document.querySelectorAll('.key:not(#backspace):not(#clear)').forEach(key => {
+            key.addEventListener('click', () => {
+                playSound('key');
+                answerInput.value += key.textContent;
+                document.getElementById('next-btn').disabled = false;
+            });
+        });
+
+        document.getElementById('backspace').addEventListener('click', () => {
+            playSound('key');
+            answerInput.value = answerInput.value.slice(0, -1);
+            document.getElementById('next-btn').disabled = answerInput.value === '';
+        });
+
+        document.getElementById('clear').addEventListener('click', () => {
+            playSound('key');
+            answerInput.value = '';
+            document.getElementById('next-btn').disabled = true;
+        });
+
+        // 下一題按鈕
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+
+        // 鍵盤事件
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                playSound('key');
+                answerInput.value += e.key;
+                document.getElementById('next-btn').disabled = false;
+            } else if (e.key === 'Backspace') {
+                playSound('key');
+                answerInput.value = answerInput.value.slice(0, -1);
+                document.getElementById('next-btn').disabled = answerInput.value === '';
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                nextQuestion();
+            }
+        });
+
+        // 重新開始
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            playSound('button');
+            if (gameState.mode === 'practice') {
+                showScreen(screens.practice);
+            } else {
+                showScreen(screens.challenge);
+            }
+        });
+
+        // 分享按鈕
+        document.getElementById('share-btn').addEventListener('click', shareToWechat);
+
+        // 检测是否为iOS设备
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+
+        // 设置body的overflow属性
+        if (isIOS()) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }   
     </script>
 </body>
 </html>
+
