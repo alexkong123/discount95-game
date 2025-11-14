@@ -1507,6 +1507,35 @@
             });
         });
 
+        // 新增模式選擇功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 首頁按鈕事件
+            document.getElementById('employee-btn').addEventListener('click', function() {
+                playSound('button');
+                showScreen(document.getElementById('employee-screen'));
+            });
+
+            document.getElementById('visitor-btn').addEventListener('click', function() {
+                playSound('button');
+                showScreen(document.getElementById('mode-selection'));
+            });
+            
+            // 模式選擇頁面事件
+            document.getElementById('practice-mode-select').addEventListener('click', function() {
+                playSound('button');
+                showScreen(document.getElementById('practice-screen'));
+            });
+            
+            document.getElementById('challenge-mode-select').addEventListener('click', function() {
+                playSound('button');
+                showScreen(document.getElementById('challenge-screen'));
+            });
+            
+            // 返回按鈕事件
+            document.getElementById('back-to-home-from-mode').addEventListener('click', function() {
+                showScreen(document.getElementById('home-screen'));
+            });
+
         document.getElementById('backspace').addEventListener('click', () => {
             playSound('key');
             answerInput.value = answerInput.value.slice(0, -1);
