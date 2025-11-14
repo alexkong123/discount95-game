@@ -859,8 +859,12 @@
 
         // 顯示指定屏幕
         function showScreen(screen) {
-            Object.values(screens).forEach(s => s.classList.remove('active'));
-            screen.classList.add('active');
+            // 隱藏所有屏幕
+            Object.values(screens).forEach(s => {
+                if (s) s.classList.remove('active');
+            });
+            // 顯示指定屏幕
+            if (screen) screen.classList.add('active');
         }
 
         // 返回首頁功能
@@ -942,6 +946,7 @@
                 showScreen(screens.gameMode);
             });
         
+            // 返回按鈕
             document.getElementById('back-to-home').addEventListener('click', goToHomeScreen);
             document.getElementById('back-to-home-from-mode').addEventListener('click', goToHomeScreen);
             document.getElementById('back-to-home-from-game').addEventListener('click', goToHomeScreen);
@@ -1008,6 +1013,21 @@
         
             // 下一題按鈕
             document.getElementById('next-btn').addEventListener('click', nextQuestion);
+          
+            // 員工ID確認按鈕 - 修復問題的關鍵在於此
+            document.getElementById('confirm-btn').addEventListener('click', function() {
+                const employeeId = document.getElementById('employee-id').value.trim();
+            
+                // 驗證6位數字
+                if (employeeId.length === 6 && /^[0-9]+$/.test(employeeId)) {
+                    gameState.employeeId = employeeId; // 保存員工ID
+                    playSound('correct');
+                    showScreen(screens.gameMode);
+                } else {
+                    playSound('wrong');
+                    alert('請輸入6位數字員工ID');
+                }
+            });
         
             // 輔助函數
             function calculate95Percent(number) {
@@ -1257,6 +1277,19 @@
                 4: { min: 7100, max: 8900 },
                 5: { min: 9100, max: 9900 }
             };
+          
+            // 複製分享內容功能
+            document.getElementById('copy-btn').addEventListener('click', function() {
+                const shareContent = document.getElementById('share-content');
+                const textArea = document.createElement('textarea');
+                textArea.value = shareContent.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+              
+                alert('分享內容已複製！');
+            });
         });
     </script>
 </body>
