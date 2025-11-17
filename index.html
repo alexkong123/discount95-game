@@ -624,16 +624,6 @@
             color: #7f8c8d;
         }
 
-        .bgm-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-        }
-
         .status-on {
             color: #27ae60;
         }
@@ -646,6 +636,14 @@
             font-size: 0.9rem;
             color: #7f8c8d;
             margin-bottom: 5px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            display: none;
         }
 
         @media (max-width: 480px) {
@@ -848,6 +846,8 @@
             </div>
           
             <input type="text" class="answer-input" id="answerInput" placeholder="輸入答案" readonly>
+          
+            <div class="error-message" id="errorMessage"></div>
           
             <div class="keypad">
                 <button class="key" data-key="1">1</button>
@@ -1474,9 +1474,9 @@
           
             // 員工登入按鈕
             document.getElementById('confirmBtn').addEventListener('click', () => {
-                const employeeId = document.getElementById('employeeIdInput').trim();
+                const employeeId = document.getElementById('employeeIdInput').value;
               
-                if (employeeId.length === 6 && /^[0-9]+$/.test(employeeId)) {
+                if (employeeId && /^[0-9]{6}$/.test(employeeId)) {
                     gameState.employeeId = employeeId;
                     gameState.isEmployee = true;
                     showScreen(screens.mode, 'employee');
@@ -1508,7 +1508,18 @@
             });
           
             // 游戏控制按钮
-            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+            document.getElementById('actionBtn').addEventListener('click', () => {
+                if (document.getElementById('answerInput').value.trim() === '') {
+                    if (gameState.isSoundOn) playSound('wrong');
+                    document.getElementById('errorMessage').textContent = '請輸入答案！';
+                    document.getElementById('errorMessage').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('errorMessage').classList.remove('show');
+                    }, 2000);
+                } else {
+                    nextQuestion();
+                }
+            });
           
             // 键盘事件
             document.addEventListener('keydown', (e) => {
@@ -1526,7 +1537,9 @@
                 } else if (e.key === 'Enter') {
                     e.preventDefault();
                     if (gameState.nextButtonEnabled) {
-                        nextQuestion();
+                        if (document.getElementById('answerInput').value.trim() !== '') {
+                            nextQuestion();
+                        }
                     }
                 }
             });
