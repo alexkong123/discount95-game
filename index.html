@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>95數背數小游戲 - 練習模式優化版</title>
+    <title>95數背數小游戲 - 合併按鈕版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -280,6 +280,8 @@
             background-color: #fff;
             transition: all 0.3s;
             outline: none;
+            font-weight: bold;
+            letter-spacing: 2px;
         }
 
         .answer-input:focus {
@@ -752,8 +754,7 @@
                 <p>1. 游戲會隨機出現100-9900的整百位數</p>
                 <p>2. 請輸入該數字的95% 結果（例如：100 → 95）</p>
                 <p>3. 使用數字鍵盤輸入答案，完成後進入下一題</p>
-                <p>4. 挑戰模式會有時間限制，增加遊戲難度</p>
-                <p>5. 完成遊戲後可查看成績和錯題記錄</p>
+                <p>4. 挑戰模式會有時間限制，增加游戲難度</p>
             </div>
           
             <button class="btn employee-btn" id="employeeBtn">
@@ -781,7 +782,7 @@
             <input type="text" id="employeeIdInput" class="employee-id-input" placeholder="000000" maxlength="6">
             <div class="employee-id-note">請輸入6位數字員工ID</div>
           
-            <button class="btn" id="confirmEmployeeBtn">確認</button>
+            <button class="btn" id="confirmBtn">確認</button>
         </div>
       
         <!-- 模式選擇頁面 -->
@@ -863,7 +864,7 @@
                 <button class="key" id="clear"><i class="fas fa-trash-alt"></i></button>
             </div>
           
-            <button class="btn" id="nextBtn">下一题</button>
+            <button class="btn" id="actionBtn">確認</button>
         </div>
       
         <!-- 結果頁面 -->
@@ -1025,7 +1026,8 @@
             gameHistory: [],
             fromScreen: 'home',
             numericKeyboard: true,
-            nextButtonEnabled: true // 新增狀態追蹤下一題按鈕
+            nextButtonEnabled: true, // 新增狀態追蹤按鈕
+            actionButtonMode: 'confirm' // 'confirm' or 'next'
         };
       
         // 屏幕元素
@@ -1051,8 +1053,7 @@
             if (screen === screens.game) {
                 setTimeout(() => {
                     document.getElementById('answerInput').focus();
-                    gameState.nextButtonEnabled = true; // 啟用下一題按鈕
-                    document.getElementById('nextBtn').disabled = false; // 確保按鈕未禁用
+                    updateActionButton();
                 }, 100);
             }
         }
@@ -1176,6 +1177,10 @@
             if (gameState.isSoundOn) {
                 playSound('button');
             }
+          
+            // 更新按鈕狀態
+            gameState.nextButtonEnabled = true;
+            updateActionButton();
         }
       
         // 更新計時器
@@ -1194,7 +1199,6 @@
           
             if (userAnswer === '') {
                 if (gameState.isSoundOn) playSound('wrong');
-                // 而不是返回，而是顯示錯誤消息
                 errorMessage.textContent = '請輸入答案！';
                 errorMessage.classList.add('show');
                 setTimeout(() => {
@@ -1254,6 +1258,10 @@
               
                 // 音效
                 if (gameState.isSoundOn) playSound('button');
+              
+                // 更新按鈕狀態
+                gameState.nextButtonEnabled = true;
+                updateActionButton();
             }
         }
       
@@ -1465,7 +1473,7 @@
             });
           
             // 員工登入按鈕
-            document.getElementById('confirmEmployeeBtn').addEventListener('click', () => {
+            document.getElementById('confirmBtn').addEventListener('click', () => {
                 const employeeId = document.getElementById('employeeIdInput').trim();
               
                 if (employeeId.length === 6 && /^[0-9]+$/.test(employeeId)) {
@@ -1509,13 +1517,17 @@
                 if (e.key >= '0' && e.key <= '9') {
                     playSound('key');
                     document.getElementById('answerInput').value += e.key;
+                    updateActionButton();
                 } else if (e.key === 'Backspace') {
                     playSound('key');
                     const input = document.getElementById('answerInput');
                     input.value = input.value.slice(0, -1);
+                    updateActionButton();
                 } else if (e.key === 'Enter') {
                     e.preventDefault();
-                    nextQuestion();
+                    if (gameState.nextButtonEnabled) {
+                        nextQuestion();
+                    }
                 }
             });
           
@@ -1525,6 +1537,7 @@
                     if (screens.game.classList.contains('active')) {
                         playSound('key');
                         document.getElementById('answerInput').value += key.textContent;
+                        updateActionButton();
                     }
                 });
             });
@@ -1535,6 +1548,7 @@
                     playSound('key');
                     const input = document.getElementById('answerInput');
                     input.value = input.value.slice(0, -1);
+                    updateActionButton();
                 }
             });
           
@@ -1543,6 +1557,7 @@
                 if (screens.game.classList.contains('active')) {
                     playSound('key');
                     document.getElementById('answerInput').value = '';
+                    updateActionButton();
                 }
             });
           
@@ -1596,6 +1611,22 @@
                     showScreen(screens.home, '');
                 });
             });
+        }
+      
+        // 更新动作按钮状态
+        function updateActionButton() {
+            const input = document.getElementById('answerInput');
+            const actionBtn = document.getElementById('actionBtn');
+          
+            if (!input || !actionBtn) return;
+          
+            if (input.value.trim() === '') {
+                actionBtn.textContent = '確認';
+                gameState.actionButtonMode = 'confirm';
+            } else {
+                actionBtn.textContent = '下一题';
+                gameState.actionButtonMode = 'next';
+            }
         }
       
         // 初始化游戏统计
