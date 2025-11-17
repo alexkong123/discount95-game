@@ -31,13 +31,13 @@
             overflow-x: hidden;
             color: #333;
         }
-      
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-      
+
         .container {
             width: 100%;
             max-width: 500px;
@@ -49,37 +49,37 @@
             position: relative;
             overflow: hidden;
         }
-      
+
         .screen {
             display: none;
             flex: 1;
             flex-direction: column;
             position: relative;
         }
-      
+
         .active {
             display: flex;
         }
-      
+
         .header {
             text-align: center;
             margin-bottom: 20px;
             position: relative;
         }
-      
+
         h1 {
             font-size: 1.8rem;
             color: #2c3e50;
             margin-bottom: 5px;
             font-weight: 700;
         }
-      
+
         .subtitle {
             font-size: 0.9rem;
             color: #7f8c8d;
             margin-bottom: 15px;
         }
-      
+
         .instructions {
             background: #f8f9fa;
             padding: 15px;
@@ -90,7 +90,7 @@
             line-height: 1.6;
             font-size: 0.95rem;
         }
-      
+
         .instructions h3 {
             margin-bottom: 10px;
             color: #2c3e50;
@@ -99,7 +99,7 @@
             justify-content: center;
             gap: 8px;
         }
-      
+
         .btn {
             background: linear-gradient(45deg, #3498db, #2980b9);
             border: none;
@@ -118,29 +118,29 @@
             position: relative;
             overflow: hidden;
         }
-      
+
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-      
+
         .btn:active {
             transform: translateY(1px);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
-      
+
         .employee-btn {
             background: linear-gradient(45deg, #9b59b6, #8e44ad);
         }
-      
+
         .visitor-btn {
             background: linear-gradient(45deg, #2ecc71, #27ae60);
         }
-      
+
         .mode-btn {
             background: linear-gradient(45deg, #e67e22, #d35400);
         }
-      
+
         .sound-toggle {
             position: fixed;
             top: 15px;
@@ -159,22 +159,22 @@
             opacity: 0.9;
             border: 1px solid rgba(0,0,0,0.1);
         }
-      
+
         .sound-toggle:hover {
             opacity: 1;
             transform: scale(1.05);
             background: #fff;
         }
-      
+
         .sound-toggle:active {
             transform: scale(0.95);
         }
-      
+
         .sound-toggle i {
             color: #2c3e50;
             font-size: 22px;
         }
-      
+
         .bgm-toggle {
             position: fixed;
             top: 15px;
@@ -193,22 +193,22 @@
             opacity: 0.9;
             border: 1px solid rgba(0,0,0,0.1);
         }
-      
+
         .bgm-toggle:hover {
             opacity: 1;
             transform: scale(1.05);
             background: #fff;
         }
-      
+
         .bgm-toggle:active {
             transform: scale(0.95);
         }
-      
+
         .bgm-toggle i {
             color: #2c3e50;
             font-size: 22px;
         }
-      
+
         .back-home-btn {
             position: absolute;
             top: 15px;
@@ -225,24 +225,24 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
-      
+
         .back-home-btn:hover {
             background: #3498db;
             color: white;
             transform: scale(1.1);
         }
-      
+
         .back-home-btn:active {
             transform: scale(0.95);
         }
-      
+
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin: 15px 0;
         }
-      
+
         .key {
             padding: 16px 0;
             font-size: 1.6rem;
@@ -258,17 +258,17 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
         }
-      
+
         .key:active {
             transform: scale(0.95);
             background: #1a252f;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-      
+
         .key i {
             font-size: 1.4rem;
         }
-      
+
         .answer-input {
             width: 100%;
             padding: 16px;
@@ -281,16 +281,16 @@
             transition: all 0.3s;
             outline: none;
         }
-      
+
         .answer-input:focus {
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
-      
+
         .progress-container {
             margin: 20px 0;
         }
-      
+
         .progress-text {
             text-align: center;
             margin-bottom: 10px;
@@ -298,14 +298,14 @@
             color: #2c3e50;
             font-weight: 500;
         }
-      
+
         .progress-bar {
             height: 14px;
             background: #ecf0f1;
             border-radius: 7px;
             overflow: hidden;
         }
-      
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(to right, #3498db, #2ecc71);
@@ -313,7 +313,7 @@
             transition: width 0.5s ease;
             width: 0%;
         }
-      
+
         .timer {
             text-align: center;
             font-size: 1.1rem;
@@ -324,32 +324,31 @@
             justify-content: center;
             gap: 5px;
         }
-      
+
         .result-container {
             padding: 20px;
             text-align: center;
         }
-      
+
         .result-score {
             font-size: 1.8rem;
             color: #3498db;
             margin: 15px 0;
             font-weight: bold;
         }
-      
+
         .result-accuracy {
             font-size: 1.5rem;
             color: #e74c3c;
             margin: 10px 0;
             font-weight: bold;
         }
-      
+
         .employee-id-display {
             background: #f8f9fa;
             padding: 12px;
             border-radius: 10px;
             margin: 15px 0;
-            font-size: 1.1rem;
             border: 1px solid #e0e0e0;
             color: #9b59b6;
             font-weight: bold;
@@ -358,14 +357,14 @@
             justify-content: center;
             gap: 8px;
         }
-      
+
         .stats-container {
             display: flex;
             justify-content: space-around;
             margin: 20px 0;
             text-align: center;
         }
-      
+
         .stat-item {
             background: #f8f9fa;
             padding: 15px;
@@ -374,30 +373,30 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
         }
-      
+
         .stat-item:hover {
             transform: translateY(-5px);
         }
-      
+
         .stat-value {
             font-size: 1.5rem;
             font-weight: bold;
             margin-top: 5px;
         }
-      
+
         .success-rate {
             color: #27ae60;
         }
-      
+
         .failure-rate {
             color: #e74c3c;
         }
-      
+
         .wrong-questions {
             margin: 20px 0;
             text-align: left;
         }
-      
+
         .wrong-title {
             color: #e74c3c;
             font-weight: bold;
@@ -407,7 +406,7 @@
             justify-content: center;
             gap: 8px;
         }
-      
+
         .wrong-item {
             background: #f8f9fa;
             padding: 12px;
@@ -415,18 +414,18 @@
             margin-bottom: 10px;
             border-left: 4px solid #e74c3c;
         }
-      
+
         .correct-answer {
             color: #27ae60;
             font-weight: bold;
             margin-top: 5px;
         }
-      
+
         .wrong-answer {
             color: #e74c3c;
             text-decoration: line-through;
         }
-      
+
         .share-btn {
             background: linear-gradient(45deg, #2ecc71, #27ae60);
             color: white;
@@ -445,12 +444,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: all 0.3s;
         }
-      
+
         .share-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-      
+
         .modal {
             display: none;
             position: fixed;
@@ -463,7 +462,7 @@
             justify-content: center;
             align-items: center;
         }
-      
+
         .modal-content {
             background: white;
             border-radius: 15px;
@@ -474,14 +473,15 @@
             animation: modalAppear 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-      
+
         @keyframes modalAppear {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-      
+
         .share-text {
             background: #f8f9fa;
+            color: #2c3e50;
             padding: 15px;
             border-radius: 10px;
             margin: 20px 0;
@@ -494,7 +494,7 @@
             text-align: center;
             line-height: 1.5;
         }
-      
+
         .copy-btn {
             background: #3498db;
             color: white;
@@ -508,21 +508,21 @@
             font-weight: bold;
             transition: background 0.3s;
         }
-      
+
         .copy-btn:hover {
             background: #2980b9;
         }
-      
+
         .pulse {
             animation: pulse 0.5s ease;
         }
-      
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-      
+
         .challenge-timer {
             background: rgba(231, 76, 60, 0.15);
             color: #c0392b;
@@ -534,7 +534,7 @@
             gap: 5px;
             margin-top: 10px;
         }
-      
+
         .difficulty-option {
             background: white;
             border: 2px solid #e0e0e0;
@@ -546,13 +546,13 @@
             text-align: center;
             font-weight: 500;
         }
-      
+
         .difficulty-option:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: #3498db;
         }
-      
+
         .difficulty-option h3 {
             margin-bottom: 8px;
             display: flex;
@@ -560,19 +560,19 @@
             justify-content: center;
             gap: 8px;
         }
-      
+
         .difficulty-option p {
             font-size: 0.9rem;
             color: #7f8c8d;
             margin: 5px 0;
         }
-      
+
         .selected-difficulty {
             background: #e3f2fd;
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
-      
+
         .employee-id-input {
             width: 100%;
             padding: 16px;
@@ -587,19 +587,19 @@
             font-weight: bold;
             letter-spacing: 2px;
         }
-      
+
         .employee-id-input:focus {
             border-color: #9b59b6;
             box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
         }
-      
+
         .employee-id-note {
             text-align: center;
             margin: 10px 0;
             color: #7f8c8d;
             font-size: 0.95rem;
         }
-      
+
         .wx-tip {
             background: #e1f5fe;
             color: #0277bd;
@@ -611,7 +611,7 @@
             align-items: center;
             gap: 8px;
         }
-      
+
         .sound-status {
             display: flex;
             align-items: center;
@@ -621,7 +621,7 @@
             font-size: 0.9rem;
             color: #7f8c8d;
         }
-      
+
         .bgm-status {
             display: flex;
             align-items: center;
@@ -631,21 +631,21 @@
             font-size: 0.9rem;
             color: #7f8c8d;
         }
-      
+
         .status-on {
             color: #27ae60;
         }
-      
+
         .status-off {
             color: #e74c3c;
         }
-      
+
         .game-title-small {
             font-size: 0.9rem;
             color: #7f8c8d;
             margin-bottom: 5px;
         }
-      
+
         @media (max-width: 480px) {
             .container {
                 padding: 15px 10px;
@@ -693,7 +693,7 @@
                 height: 32px;
             }
         }
-      
+
         .loading-overlay {
             display: none;
             position: fixed;
@@ -710,7 +710,7 @@
             flex-direction: column;
             gap: 15px;
         }
-      
+
         .loading-spinner {
             width: 50px;
             height: 50px;
@@ -719,7 +719,7 @@
             border-top-color: #3498db;
             animation: spin 1s ease-in-out infinite;
         }
-      
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -750,7 +750,7 @@
             <div class="instructions">
                 <h3><i class="fas fa-info-circle"></i> 遊戲說明</h3>
                 <p>1. 游戲會隨機出現100-9900的整百位數</p>
-                <p>2. 請輸入該數字的95%結果（例如：100 → 95）</p>
+                <p>2. 請輸入該數字的95% 結果（例如：100 → 95）</p>
                 <p>3. 使用數字鍵盤輸入答案，完成後進入下一題</p>
                 <p>4. 挑戰模式會有時間限制，增加遊戲難度</p>
                 <p>5. 完成遊戲後可查看成績和錯題記錄</p>
@@ -842,8 +842,8 @@
                 </div>
             </div>
           
-            <div class="question-container">
-                <div class="question" id="question">100</div>
+            <div class="question-container" style="margin: 20px 0; text-align: center;">
+                <div class="question" id="question" style="font-size: 3rem; font-weight: bold; color: #2c3e50;">100</div>
             </div>
           
             <input type="text" class="answer-input" id="answerInput" placeholder="輸入答案" readonly>
@@ -912,7 +912,7 @@
                     <!-- 錯題會動態添加到这里 -->
                 </div>
               
-                <button class="btn share-btn" id="shareBtn">
+                <button class="share-btn" id="shareBtn">
                     <i class="fas fa-share-alt"></i> 分享成績
                 </button>
             </div>
@@ -946,15 +946,15 @@
             <div class="stats-container" style="margin-top: 20px;">
                 <div class="stat-item">
                     <div>平均正確率</div>
-                    <div class="stat-value success-rate" id="statsAvgAccuracy">0%</div>
+                    <div class="stat-value" id="statsAvgAccuracy">0%</div>
                 </div>
                 <div class="stat-item">
                     <div>最高正確率</div>
-                    <div class="stat-value success-rate" id="statsBestAccuracy">0%</div>
+                    <div class="stat-value" id="statsBestAccuracy">0%</div>
                 </div>
                 <div class="stat-item">
                     <div>最低正確率</div>
-                    <div class="stat-value failure-rate" id="statsWorstAccuracy">0%</div>
+                    <div class="stat-value" id="statsWorstAccuracy">0%</div>
                 </div>
             </div>
           
@@ -1024,7 +1024,8 @@
             employeeId: null,
             gameHistory: [],
             fromScreen: 'home',
-            numericKeyboard: true
+            numericKeyboard: true,
+            nextButtonEnabled: true // 新增狀態追蹤下一題按鈕
         };
       
         // 屏幕元素
@@ -1050,13 +1051,14 @@
             if (screen === screens.game) {
                 setTimeout(() => {
                     document.getElementById('answerInput').focus();
+                    gameState.nextButtonEnabled = true; // 啟用下一題按鈕
+                    document.getElementById('nextBtn').disabled = false; // 確保按鈕未禁用
                 }, 100);
             }
         }
-      
+
         // 生成題目
         function generateQuestions() {
-            gameState.questions = [];
             let allNumbers = [];
           
             if (gameState.mode === 'practice') {
@@ -1192,6 +1194,7 @@
           
             if (userAnswer === '') {
                 if (gameState.isSoundOn) playSound('wrong');
+                // 而不是返回，而是顯示錯誤消息
                 errorMessage.textContent = '請輸入答案！';
                 errorMessage.classList.add('show');
                 setTimeout(() => {
@@ -1394,7 +1397,6 @@
         function playSound(type) {
             if (!gameState.isSoundOn) return;
           
-            // 使用Web Audio API創建音效
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioCtx.createOscillator();
@@ -1464,7 +1466,7 @@
           
             // 員工登入按鈕
             document.getElementById('confirmEmployeeBtn').addEventListener('click', () => {
-                const employeeId = document.getElementById('employeeIdInput').value.trim();
+                const employeeId = document.getElementById('employeeIdInput').trim();
               
                 if (employeeId.length === 6 && /^[0-9]+$/.test(employeeId)) {
                     gameState.employeeId = employeeId;
