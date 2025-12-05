@@ -138,6 +138,7 @@
             transition: all 0.3s;
             outline: none;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: right;
         }
       
         .answer-input:focus {
@@ -461,7 +462,7 @@
             margin: 8px 0;
             font-weight: bold;
         }
-      
+
         /* 響應式調整 */
         @media (max-width: 480px) {
             .container {
@@ -830,17 +831,17 @@
           
             <div>
                 <div class="keypad">
-                    <button class="key">1</button>
-                    <button class="key">2</button>
-                    <button class="key">3</button>
-                    <button class="key">4</button>
-                    <button class="key">5</button>
-                    <button class="key">6</button>
-                    <button class="key">7</button>
-                    <button class="key">8</button>
-                    <button class="key">9</button>
+                    <button class="key" data-key="7">7</button>
+                    <button class="key" data-key="8">8</button>
+                    <button class="key" data-key="9">9</button>
+                    <button class="key" data-key="4">4</button>
+                    <button class="key" data-key="5">5</button>
+                    <button class="key" data-key="6">6</button>
+                    <button class="key" data-key="1">1</button>
+                    <button class="key" data-key="2">2</button>
+                    <button class="key" data-key="3">3</button>
+                    <button class="key" data-key="0">0</button>
                     <button class="key" id="backspace"><i class="fas fa-backspace"></i></button>
-                    <button class="key">0</button>
                     <button class="key" id="clear"><i class="fas fa-trash-alt"></i></button>
                 </div>
               
@@ -908,16 +909,6 @@
                 <p>挑战95数背数游戏，测试你的心算能力！</p>
             </div>
           
-            <div class="share-info">
-                <p>我的成绩：</p>
-                <div class="score-display">
-                    得分：<span id="share-score">0</span> / <span id="share-total">10</span>
-                </div>
-                <div class="accuracy-display">
-                    正确率：<span id="share-accuracy">0</span>%
-                </div>
-            </div>
-          
             <div class="share-text-container">
                 <p>分享内容：</p>
                 <div class="share-text" id="share-text"></div>
@@ -961,6 +952,24 @@
             try {
                 audioContext = new AudioContext();
               
+                // 创建音效
+                const createBeep = (freq, duration) => {
+                    if (!audioContext) return;
+                  
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                  
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                  
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = freq;
+                    gainNode.gain.value = 0.3;
+                  
+                    return { oscillator, gainNode, duration };
+                };
+              
+                // 创建声音
                 soundBuffers.key = createBeep(800, 0.05);
                 soundBuffers.correct = createBeep(1200, 0.1);
                 soundBuffers.wrong = createBeep(400, 0.2);
@@ -976,22 +985,6 @@
                 soundStatus.className = 'sound-status error';
                 soundEnabled = false;
             }
-        }
-      
-        function createBeep(frequency, duration) {
-            if (!audioContext) return;
-          
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-          
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-          
-            oscillator.type = 'sine';
-            oscillator.frequency.value = frequency;
-            gainNode.gain.value = 0.3;
-          
-            return { oscillator, gainNode, duration };
         }
       
         function playSound(type) {
@@ -1021,6 +1014,10 @@
             }
         }
       
+        // 初始化音效系统
+        initSoundSystem();
+      
+        // 绑定音效开关
         soundToggle.addEventListener('click', function() {
             soundEnabled = !soundEnabled;
             soundIcon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
@@ -1032,9 +1029,7 @@
             soundStatus.className = 'sound-status' + (soundEnabled ? '' : ' error');
         });
       
-        setTimeout(initSoundSystem, 500);
-      
-        // 遊戲邏輯
+        // 游戏状态
         const gameState = {
             mode: null, // 'practice' or 'challenge'
             difficulty: null, // 'basic', 'advanced', 'expert'
@@ -1055,17 +1050,7 @@
             usedNumbers: new Set()
         };
 
-        // 練習範圍定義
-        const practiceRanges = {
-            1: { min: 100, max: 1900, name: "100至1900內容" },
-            2: { min: 2100, max: 3900, name: "2100至3900內容" },
-            3: { min: 4100, max: 5900, name: "4100至5900內容" },
-            4: { min: 6100, max: 7900, name: "6100至7900內容" },
-            5: { min: 8100, max: 9900, name: "8100至9900內容" },
-            6: { min: 100, max: 4900, name: "100至4900內容" },
-            7: { min: 5100, max: 9900, name: "5100至9900內容" }
-        };
-
+        // 屏幕元素
         const screens = {
             home: document.getElementById('home-screen'),
             practice: document.getElementById('practice-screen'),
@@ -1074,52 +1059,68 @@
             result: document.getElementById('result-screen')
         };
 
+        // 显示屏幕函数
         function showScreen(screen) {
             Object.values(screens).forEach(s => s.classList.remove('active'));
             screen.classList.add('active');
         }
 
-        // 返回首頁功能
-        function goToHomeScreen() {
+        // 返回首页按钮
+        document.getElementById('back-home-game').addEventListener('click', () => {
             clearInterval(gameState.timerInterval);
             clearInterval(gameState.challengeTimerInterval);
             playSound('button');
             showScreen(screens.home);
-        }
+        });
       
-        // 綁定返回按鈕事件
-        document.getElementById('back-home-game').addEventListener('click', goToHomeScreen);
-        document.getElementById('back-home-result').addEventListener('click', goToHomeScreen);
-        document.getElementById('back-home-practice').addEventListener('click', goToHomeScreen);
-        document.getElementById('back-home-challenge').addEventListener('click', goToHomeScreen);
+        document.getElementById('back-home-result').addEventListener('click', () => {
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.challengeTimerInterval);
+            playSound('button');
+            showScreen(screens.home);
+        });
+      
+        document.getElementById('back-home-practice').addEventListener('click', () => {
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.challengeTimerInterval);
+            playSound('button');
+            showScreen(screens.home);
+        });
+      
+        document.getElementById('back-home-challenge').addEventListener('click', () => {
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.challengeTimerInterval);
+            playSound('button');
+            showScreen(screens.home);
+        });
 
-        // 主界面模式選擇
-        document.getElementById('practice-mode').addEventListener('click', function() {
+        // 主界面模式选择
+        document.getElementById('practice-mode').addEventListener('click', () => {
             playSound('button');
             showScreen(screens.practice);
         });
       
-        document.getElementById('challenge-mode').addEventListener('click', function() {
+        document.getElementById('challenge-mode').addEventListener('click', () => {
             playSound('button');
             showScreen(screens.challenge);
         });
 
-        // 練習模式選擇
+        // 练习范围选择
         document.querySelectorAll('#practice-screen .difficulty-option').forEach((option, index) => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', () => {
                 gameState.mode = 'practice';
                 gameState.practiceRange = index + 1;
                 startGame();
             });
         });
 
-        // 挑戰模式選擇
+        // 挑战难度选择
         document.querySelectorAll('#challenge-screen .difficulty-option').forEach(option => {
             option.addEventListener('click', function() {
                 gameState.mode = 'challenge';
                 gameState.difficulty = this.dataset.difficulty;
               
-                // 根據難度設置題目数量和時間限制
+                // 设置题目数量和计时器
                 switch(gameState.difficulty) {
                     case 'basic':
                         gameState.totalQuestions = 30;
@@ -1139,36 +1140,33 @@
             });
         });
 
-        // 生成指定範圍內的不重複整百數題目
+        // 生成题目
         function generateQuestions() {
             const questions = [];
             let allNumbers = [];
           
             if (gameState.mode === 'practice') {
-                // 練習模式：使用指定的數值範圍
+                // 练习模式：使用选中的范围
                 const range = practiceRanges[gameState.practiceRange];
-                // 生成範圍內的所有整百數
+                // 生成范围内的所有整百数
                 for (let num = range.min; num <= range.max; num += 100) {
                     allNumbers.push(num);
                 }
-                gameState.totalQuestions = 18; // 練習模式固定18題
+                gameState.totalQuestions = 18; // 练习模式固定18题
             } else {
-                // 挑戰模式：使用預設範圍 (100-9900)
+                // 挑战模式：使用预设范围 (100-9900)
                 for (let num = 100; num <= 9900; num += 100) {
                     allNumbers.push(num);
                 }
             }
           
-            // 重置已用數字集
-            gameState.usedNumbers.clear();
-          
-            // 洗牌算法打亂數組
+            // 打乱数组
             for (let i = allNumbers.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
             }
           
-            // 取前totalQuestions個不重複的數字
+            // 取前totalQuestions个
             for (let i = 0; i < gameState.totalQuestions; i++) {
                 questions.push(allNumbers[i]);
                 gameState.usedNumbers.add(allNumbers[i]);
@@ -1177,12 +1175,12 @@
             return questions;
         }
 
-        // 計算95折答案
+        // 计算95%答案
         function calculate95Percent(number) {
             return Math.floor(number * 0.95);
         }
 
-        // 開始新遊戲
+        // 开始游戏
         function startGame() {
             clearInterval(gameState.timerInterval);
             clearInterval(gameState.challengeTimerInterval);
@@ -1204,7 +1202,7 @@
             document.getElementById('progress-fill').style.width = '0%';
             document.getElementById('next-btn').disabled = true;
           
-            // 設置遊戲標題
+            // 设置游戏标题
             if (gameState.mode === 'challenge') {
                 document.getElementById('game-title').innerHTML = `<i class="fas fa-trophy"></i> 挑戰模式 - ${getDifficultyName()}`;
                 document.getElementById('challenge-timer-container').style.display = 'block';
@@ -1218,13 +1216,13 @@
             startTimer();
             playSound('start');
           
-            // 如果是挑戰模式，啟動倒計時
+            // 如果是挑战模式，启动倒计时
             if (gameState.mode === 'challenge') {
                 startChallengeTimer();
             }
         }
       
-        // 獲取難度名稱
+        // 获取难度名称
         function getDifficultyName() {
             switch(gameState.difficulty) {
                 case 'basic': return '基礎';
@@ -1234,7 +1232,7 @@
             }
         }
 
-        // 開始計時器
+        // 开始计时器
         function startTimer() {
             gameState.startTime = new Date();
             gameState.timerInterval = setInterval(() => {
@@ -1244,20 +1242,20 @@
             }, 1000);
         }
       
-        // 更新計時器顯示
+        // 更新计时器显示
         function updateTimerDisplay() {
             const minutes = Math.floor(gameState.elapsedTime / 60).toString().padStart(2, '0');
             const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
             document.getElementById('timer').textContent = `${minutes}:${seconds}`;
         }
 
-        // 下一題（直接提交答案）
+        // 下一题
         function nextQuestion() {
             clearInterval(gameState.challengeTimerInterval);
           
             const userAnswer = document.getElementById('answer-input').value;
           
-            // 記錄本題用時（挑戰模式）
+            // 记录本题用时（挑战模式）
             if (gameState.mode === 'challenge') {
                 const questionStartTime = gameState.startTime + (gameState.elapsedTime * 1000);
                 const questionTime = Math.floor((new Date() - questionStartTime) / 1000);
@@ -1296,7 +1294,7 @@
                 }
             }
           
-            // 進入下一題
+            // 进入下一题
             gameState.currentQuestion++;
           
             if (gameState.currentQuestion > gameState.questions.length) {
@@ -1312,7 +1310,7 @@
             updateProgressBar();
             document.getElementById('next-btn').disabled = true;
           
-            // 如果是挑戰模式，重置倒計時
+            // 如果是挑战模式，重置倒计时
             if (gameState.mode === 'challenge') {
                 switch(gameState.difficulty) {
                     case 'basic': gameState.challengeTimeLeft = 10; break;
@@ -1323,13 +1321,13 @@
             }
         }
 
-        // 更新進度條
+        // 更新进度条
         function updateProgressBar() {
             const progress = ((gameState.currentQuestion - 1) / gameState.questions.length) * 100;
             document.getElementById('progress-fill').style.width = `${progress}%`;
         }
 
-        // 結束遊戲
+        // 结束游戏
         function endGame() {
             clearInterval(gameState.timerInterval);
             clearInterval(gameState.challengeTimerInterval);
@@ -1337,7 +1335,7 @@
             playSound('end');
         }
 
-        // 顯示結果
+        // 显示结果
         function showResults() {
             const totalQuestions = gameState.questions.length;
             const accuracy = Math.round((gameState.score / totalQuestions) * 100);
@@ -1350,13 +1348,13 @@
             const seconds = (gameState.elapsedTime % 60).toString().padStart(2, '0');
             document.getElementById('total-time').textContent = `${minutes}:${seconds}`;
           
-            // 更新結果徽章
+            // 更新结果徽章
             const badge = document.getElementById('result-badge');
             if (accuracy >= 90) {
                 badge.innerHTML = '<i class="fas fa-crown" style="color: #FFD700;"></i>';
                 badge.title = "王者級別！";
             } else if (accuracy >= 70) {
-                badge.innerHTML = '<i class="fas fa-star" style="color: #C0C0C0;"></i>';
+                badge.innerHTML = '<i class="fas fa-star" style="color: #C0C0C2;"></i>';
                 badge.title = "表現優異！";
             } else if (accuracy >= 50) {
                 badge.innerHTML = '<i class="fas fa-check-circle" style="color: #CD7F32;"></i>';
@@ -1366,7 +1364,7 @@
                 badge.title = "多加練習！";
             }
           
-            // 挑戰模式顯示額外信息
+            // 挑战模式显示额外信息
             const challengeResult = document.getElementById('challenge-result');
             if (gameState.mode === 'challenge') {
                 challengeResult.style.display = 'block';
@@ -1414,7 +1412,7 @@
 快來挑戰你的心算能力！`;
         }
 
-        // 檢測是否在微信環境
+        // 检测是否在微信环境
         function isWechat() {
             return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
         }
@@ -1433,18 +1431,18 @@
             const shareText = generateShareText();
             document.getElementById('share-text').textContent = shareText;
           
-            // 檢測微信環境
+            // 检测微信环境
             if (isWechat()) {
                 document.getElementById('wx-instructions').style.display = 'block';
             } else {
                 document.getElementById('wx-instructions').style.display = 'none';
             }
           
-            // 顯示分享模態框
+            // 显示分享模态框
             document.getElementById('share-modal').style.display = 'flex';
         }
 
-        // 複制分享文案
+        // 复制分享文案
         function copyShareText() {
             playSound('correct');
             const shareText = document.getElementById('share-text').textContent;
@@ -1456,26 +1454,80 @@
             });
         }
 
-        // 關閉模態框
+        // 关闭模态框
         document.getElementById('close-modal').addEventListener('click', function() {
             document.getElementById('share-modal').style.display = 'none';
         });
 
-        // 綁定分享按鈕
+        // 绑定键盘事件
+        document.querySelectorAll('.key:not(#backspace):not(#clear)').forEach(key => {
+            key.addEventListener('click', function() {
+                playSound('key');
+                document.getElementById('answer-input').value += this.textContent;
+                document.getElementById('next-btn').disabled = false;
+            });
+        });
+      
+        // 绑定删除按钮
+        document.getElementById('backspace').addEventListener('click', function() {
+            playSound('key');
+            const input = document.getElementById('answer-input');
+            input.value = input.value.slice(0, -1);
+            document.getElementById('next-btn').disabled = input.value === '';
+        });
+      
+        // 绑定清除按钮
+        document.getElementById('clear').addEventListener('click', function() {
+            playSound('key');
+            document.getElementById('answer-input').value = '';
+            document.getElementById('next-btn').disabled = true;
+        });
+      
+        // 绑定输入框键盘事件
+        document.getElementById('answer-input').addEventListener('keydown', function(e) {
+            if (e.key >= '0' && e.key <= '9') {
+                playSound('key');
+                this.value += e.key;
+                document.getElementById('next-btn').disabled = false;
+            } else if (e.key === 'Backspace') {
+                playSound('key');
+                this.value = this.value.slice(0, -1);
+                document.getElementById('next-btn').disabled = this.value === '';
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                nextQuestion();
+            }
+        });
+      
+        // 绑定下一题按钮
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+      
+        // 绑定分享按钮
         document.getElementById('share-btn').addEventListener('click', shareToWechat);
-        document.getElementById('copy-btn').addEventListener('click', copyShareText);
-
-        // 檢測是否為iOS設備
-        function isIOS() {
-            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        }
-
-        // 設置body的overflow屬性
-        if (isIOS()) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        } 
+      
+        // 绑定再玩一次按钮
+        document.getElementById('restart-btn').addEventListener('click', startGame);
+      
+        // 初始化分享文案
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置背景音乐
+            const bgmToggle = document.getElementById('bgm-toggle');
+            const bgmIcon = bgmToggle.querySelector('i');
+            const bgm = document.getElementById('bg-music');
+          
+            bgmToggle.addEventListener('click', function() {
+                if (bgm.paused) {
+                    bgm.play().catch(e => console.log('背景音樂播放失敗:', e));
+                    bgmIcon.className = 'fas fa-music';
+                } else {
+                    bgm.pause();
+                    bgmIcon.className = 'fas fa-pause';
+                }
+            });
+          
+            // 初始化输入框焦点
+            document.getElementById('answer-input').focus();
+        });
     </script>
 </body>
 </html>
