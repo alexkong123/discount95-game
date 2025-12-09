@@ -2129,7 +2129,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 6; break;
+case 'ultimate': gameState.challengeTimeLeft = 8; break;
 }
 startChallengeTimer();
 }
@@ -2158,7 +2158,7 @@ if (gameState.mode === 'challenge') {
 const questionTime = gameState.challengeTimeLeft > 0 ?
 (gameState.difficulty === 'basic' ? 10 : 
  gameState.difficulty === 'advanced' ? 7 : 
- gameState.difficulty === 'expert' ? 5 : 6) - gameState.challengeTimeLeft : 1;
+ gameState.difficulty === 'expert' ? 5 : 8) - gameState.challengeTimeLeft : 1;
 gameState.challengeTimes.push(questionTime);
 }
 
@@ -2232,7 +2232,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 6; break;
+case 'ultimate': gameState.challengeTimeLeft = 8; break;
 }
 startChallengeTimer();
 }
@@ -2738,4 +2738,5 @@ console.log('95數背數遊戲初始化完成！');
 </script>
 </body>
 </html>
+
 
