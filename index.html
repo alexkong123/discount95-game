@@ -6,8 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>95數背數小游戲 - 練習模式優化版</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- 添加 html2canvas 庫 -->
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 * {
@@ -773,7 +771,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 
 /* 調整紅色數字（題目數字） - 已縮小 */
 .incorrect-grid-number {
-font-size: 2.2rem; /* 從 2.5rem 縮小 */
+font-size: 2rem; /* 從 2.5rem 縮小 */
 font-weight: bold;
 color: #e74c3c;
 margin-bottom: 4px;
@@ -955,109 +953,6 @@ margin-left: 8px !important;
 display: inline-block !important;
 }
 
-/* 截圖分享相關樣式 */
-.screenshot-container {
-margin: 15px 0;
-padding: 10px;
-background: #f8f9fa;
-border-radius: 10px;
-border: 1px solid #e0e0e0;
-}
-
-.screenshot-preview {
-max-width: 100%;
-border-radius: 8px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.screenshot-instructions {
-margin-top: 15px;
-text-align: left;
-background: #e8f5e9;
-padding: 12px;
-border-radius: 8px;
-font-size: 0.85rem;
-}
-
-.screenshot-instructions h4 {
-margin-top: 0;
-color: #2e7d32;
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.screenshot-instructions ol {
-padding-left: 20px;
-}
-
-.screenshot-instructions li {
-margin-bottom: 6px;
-}
-
-.screenshot-buttons {
-display: flex;
-justify-content: center;
-gap: 10px;
-margin-top: 15px;
-}
-
-.screenshot-btn {
-background: linear-gradient(45deg, #3498db, #2980b9);
-color: white;
-border: none;
-padding: 10px 15px;
-border-radius: 50px;
-font-size: 0.9rem;
-cursor: pointer;
-display: inline-flex;
-align-items: center;
-gap: 5px;
-transition: all 0.3s;
-flex: 1;
-max-width: 160px;
-justify-content: center;
-}
-
-.screenshot-btn:hover {
-background: #2980b9;
-transform: translateY(-2px);
-}
-
-.screenshot-btn.save {
-background: linear-gradient(45deg, #2ecc71, #27ae60);
-}
-
-.screenshot-btn.save:hover {
-background: #27ae60;
-}
-
-.screenshot-btn.share {
-background: linear-gradient(45deg, #8E2DE2, #4A00E0);
-}
-
-.screenshot-btn.share:hover {
-background: #4A00E0;
-}
-
-.screenshot-loading {
-display: none;
-text-align: center;
-padding: 20px;
-}
-
-.screenshot-loading i {
-font-size: 2rem;
-color: #3498db;
-margin-bottom: 10px;
-animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
-}
-
 /* 響應式調整 - 手機全畫面優化 */
 @media (max-width: 480px) {
 body {
@@ -1212,7 +1107,7 @@ margin-bottom: 6px !important;
 
 /* 錯誤記錄優化 - 已調整紅色數字 */
 .incorrect-grid-container {
-margin: 8px 0 5px 0;
+margin: 7px 0 5px 0;
 min-height: 160px;
 }
 
@@ -1307,16 +1202,6 @@ padding: 0 10px;
 font-size: 0.6rem !important;
 padding: 2px 8px !important;
 margin-left: 5px !important;
-}
-
-.screenshot-buttons {
-flex-direction: column;
-gap: 8px;
-}
-
-.screenshot-btn {
-max-width: 100%;
-padding: 12px 15px;
 }
 }
 
@@ -1539,7 +1424,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <!-- 新增的終極挑戰選項 -->
 <div class="difficulty-option ultimate-challenge" data-difficulty="ultimate">
 <h3><i class="fas fa-crown"></i> 終極挑戰（三位數）</h3>
-<p>8秒/題 · 30題 · 百位2,4,6,8 · 十位個位為0 · 高手挑戰</p>
+<p>8秒/題 · 30題 · 高手挑戰</p>
 </div>
 </div>
 </div>
@@ -1688,47 +1573,49 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 </button>
 
 <button class="share-btn" id="share-btn">
-<i class="fas fa-camera"></i> 截圖保存成績
+<i class="fab fa-weixin"></i> 分享成绩
 </button>
 </div>
 </div>
 </div>
 
-<!-- 截圖分享模態框 -->
-<div class="modal" id="screenshot-modal">
+<!-- 分享模態框 -->
+<div class="modal" id="share-modal">
 <div class="modal-content">
-<h3><i class="fas fa-camera"></i> 截圖保存成績</h3>
-
-<div class="screenshot-loading" id="screenshot-loading">
-<i class="fas fa-spinner"></i>
-<p>正在生成截圖，請稍候...</p>
+<h3><i class="fab fa-weixin"></i> 分享到微信</h3>
+<div class="share-intro">
+<p>挑战95数背数游戏，测试你的心算能力！</p>
 </div>
 
-<div class="screenshot-container" id="screenshot-container" style="display: none;">
-<img id="screenshot-preview" class="screenshot-preview" src="" alt="成績截圖">
+<div class="share-info">
+<p>我的成绩：</p>
+<div class="score-display">
+得分：<span id="share-score">0</span> / <span id="share-total">10</span>
+</div>
+<div class="accuracy-display">
+正确率：<span id="share-accuracy">0</span>%
+</div>
 </div>
 
-<div class="screenshot-instructions" id="screenshot-instructions">
-<h4><i class="fas fa-info-circle"></i> 截圖使用說明</h4>
+<div class="share-text-container">
+<p>分享内容：</p>
+<div class="share-text" id="share-text"></div>
+<button class="copy-btn" id="copy-btn">
+<i class="fas fa-copy"></i> 复制分享内容
+</button>
+</div>
+
+<div class="wx-instructions" id="wx-instructions">
+<h4><i class="fas fa-share-alt"></i> 微信分享步骤</h4>
 <ol>
-<li>點擊"保存截圖"將圖片保存到手機相冊</li>
-<li>在微信中，長按圖片選擇"保存到手機"</li>
-<li>在相冊中找到圖片後分享到社交平台</li>
-<li>圖片文件名：95數背數成績_您的暱稱.png</li>
+<li>点击微信右上角的 <strong>"..."</strong> 按钮</li>
+<li>选择 <strong>"分享到朋友圈"</strong> 或 <strong>"发送给朋友"</strong></li>
+<li>选择要分享的好友或群聊</li>
 </ol>
 </div>
 
-<div class="screenshot-buttons" id="screenshot-buttons" style="display: none;">
-<button class="screenshot-btn save" id="save-screenshot-btn">
-<i class="fas fa-save"></i> 保存截圖
-</button>
-<button class="screenshot-btn share" id="share-screenshot-btn">
-<i class="fas fa-share-alt"></i> 分享截圖
-</button>
-</div>
-
-<button class="close-btn" id="close-screenshot-modal">
-<i class="fas fa-times"></i> 關閉
+<button class="close-btn" id="close-modal">
+<i class="fas fa-times"></i> 关闭
 </button>
 </div>
 </div>
@@ -2031,7 +1918,7 @@ gameState.questionType = 'standard';
 break;
 case 'ultimate': // 新增終極挑戰
 gameState.totalQuestions = 30;
-gameState.challengeTimeLeft = 8; // 修改為8秒
+gameState.challengeTimeLeft = 8;
 gameState.questionType = 'ultimate';
 break;
 }
@@ -2242,7 +2129,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 8; break; // 修改為8秒
+case 'ultimate': gameState.challengeTimeLeft = 8; break;
 }
 startChallengeTimer();
 }
@@ -2271,7 +2158,7 @@ if (gameState.mode === 'challenge') {
 const questionTime = gameState.challengeTimeLeft > 0 ?
 (gameState.difficulty === 'basic' ? 10 : 
  gameState.difficulty === 'advanced' ? 7 : 
- gameState.difficulty === 'expert' ? 5 : 8) - gameState.challengeTimeLeft : 1; // 修改為8秒
+ gameState.difficulty === 'expert' ? 5 : 8) - gameState.challengeTimeLeft : 1;
 gameState.challengeTimes.push(questionTime);
 }
 
@@ -2345,7 +2232,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 8; break; // 修改為8秒
+case 'ultimate': gameState.challengeTimeLeft = 8; break;
 }
 startChallengeTimer();
 }
@@ -2609,243 +2496,125 @@ rightNav.style.pointerEvents = 'auto';
 updateNavButtons();
 }
 
-// 截圖相關功能
-let currentScreenshot = null;
-
-// 生成成績截圖
-function generateScreenshot() {
-playSound('button');
-  
-const screenshotModal = document.getElementById('screenshot-modal');
-const screenshotLoading = document.getElementById('screenshot-loading');
-const screenshotContainer = document.getElementById('screenshot-container');
-const screenshotPreview = document.getElementById('screenshot-preview');
-const screenshotButtons = document.getElementById('screenshot-buttons');
-  
-if (!screenshotModal || !screenshotLoading || !screenshotContainer || !screenshotPreview) {
-console.error('截圖模態框元素未找到');
-return;
-}
-  
-// 顯示模態框和加載狀態
-screenshotModal.style.display = 'flex';
-screenshotLoading.style.display = 'block';
-screenshotContainer.style.display = 'none';
-screenshotButtons.style.display = 'none';
-  
-// 創建截圖元素
-const resultScreen = document.getElementById('result-screen');
-if (!resultScreen) {
-console.error('結果頁面未找到');
-return;
-}
-  
-// 創建一個臨時容器用於截圖
-const tempContainer = document.createElement('div');
-tempContainer.style.position = 'fixed';
-tempContainer.style.left = '-9999px';
-tempContainer.style.top = '-9999px';
-tempContainer.style.width = '500px';
-tempContainer.style.background = 'white';
-tempContainer.style.borderRadius = '20px';
-tempContainer.style.padding = '20px';
-tempContainer.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.25)';
-tempContainer.style.maxWidth = '90vw';
-tempContainer.style.margin = '0 auto';
-  
-// 複製結果內容到臨時容器
-const resultContent = resultScreen.querySelector('.result-content');
-if (!resultContent) {
-console.error('結果內容區域未找到');
-return;
-}
-  
-const contentClone = resultContent.cloneNode(true);
-  
-// 添加標題和裝飾
-const screenshotHeader = document.createElement('div');
-screenshotHeader.innerHTML = `
-<h1 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 1.8rem; text-align: center;">
-95數背數遊戲成績單
-</h1>
-<div style="background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); 
-height: 5px; border-radius: 3px; margin: 0 auto 15px; width: 100px;"></div>
-`;
-  
-// 添加底部信息
-const screenshotFooter = document.createElement('div');
-screenshotFooter.style.marginTop = '20px';
-screenshotFooter.style.paddingTop = '15px';
-screenshotFooter.style.borderTop = '1px solid #eee';
-screenshotFooter.style.textAlign = 'center';
-screenshotFooter.style.fontSize = '0.8rem';
-screenshotFooter.style.color = '#7f8c8d';
-screenshotFooter.innerHTML = `
-<p style="margin: 0 0 5px 0;">
-掃描二維碼或搜索「95數背數遊戲」挑戰你的心算能力！
-</p>
-<p style="margin: 0;">
-完成時間：${gameState.completionTime || new Date().toLocaleString('zh-TW')}
-</p>
-`;
-  
-tempContainer.appendChild(screenshotHeader);
-tempContainer.appendChild(contentClone);
-tempContainer.appendChild(screenshotFooter);
-document.body.appendChild(tempContainer);
-  
-// 使用html2canvas生成截圖
-html2canvas(tempContainer, {
-backgroundColor: '#ffffff',
-scale: 2, // 提高圖片質量
-useCORS: true,
-allowTaint: true,
-logging: false,
-onclone: function(clonedDoc) {
-// 確保字體和樣式正確
-clonedDoc.body.style.fontFamily = "'Segoe UI', 'Microsoft JhengHei', sans-serif";
-}
-}).then(canvas => {
-// 將canvas轉換為圖片URL
-const imageUrl = canvas.toDataURL('image/png', 1.0);
-currentScreenshot = imageUrl;
-  
-// 顯示截圖預覽
-screenshotPreview.src = imageUrl;
-screenshotPreview.onload = function() {
-screenshotLoading.style.display = 'none';
-screenshotContainer.style.display = 'block';
-screenshotButtons.style.display = 'flex';
-};
-  
-// 自動觸發保存
-setTimeout(() => {
-saveScreenshot();
-}, 500);
-  
-// 清理臨時元素
-document.body.removeChild(tempContainer);
-}).catch(error => {
-console.error('截圖生成失敗:', error);
-screenshotLoading.innerHTML = `
-<i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i>
-<p>截圖生成失敗，請重試</p>
-`;
-  
-setTimeout(() => {
-screenshotModal.style.display = 'none';
-alert('截圖生成失敗，請稍後重試');
-}, 2000);
+// 生成分享文案
+function generateShareText() {
+// 獲取日期時間（如果已經有儲存就使用，否則重新獲取）
+let completionTime = gameState.completionTime;
+if (!completionTime) {
+const now = new Date();
+completionTime = now.toLocaleString('zh-TW', {
+year: 'numeric',
+month: '2-digit',
+day: '2-digit',
+hour: '2-digit',
+minute: '2-digit',
+hour12: false
 });
 }
 
-// 保存截圖到手機相冊
-function saveScreenshot() {
-if (!currentScreenshot) {
-alert('請先生成截圖');
-return;
-}
-  
-playSound('button');
-  
-try {
-// 創建一個臨時的a標籤來下載圖片
-const link = document.createElement('a');
-link.href = currentScreenshot;
-  
-// 生成文件名
-const fileName = `95數背數成績_${gameState.playerName}_${Date.now()}.png`;
-link.download = fileName;
-  
-link.style.display = 'none';
-document.body.appendChild(link);
-  
-// 觸發點擊下載
-link.click();
-  
-// 清理
-setTimeout(() => {
-document.body.removeChild(link);
-  
-// 顯示成功提示
-const successMessage = `截圖已保存到手機相冊！
-  
-文件名：${fileName}
-  
-您可以在相冊中找到並分享此圖片。`;
-alert(successMessage);
-  
-// 關閉模態框
-const screenshotModal = document.getElementById('screenshot-modal');
-if (screenshotModal) screenshotModal.style.display = 'none';
-}, 100);
-  
-} catch (error) {
-console.error('保存截圖失敗:', error);
-  
-// 備用方法：提供圖片URL讓用戶手動保存
-const fallbackMessage = `截圖已生成！請長按下方圖片，選擇「保存圖片」到手機相冊。`;
-alert(fallbackMessage);
-}
+const modeText = gameState.mode === 'challenge'
+? (gameState.difficulty === 'ultimate' 
+   ? '【終極挑戰·三位數】' 
+   : `【挑戰模式·${getDifficultyName()}】`)
+: '【練習模式】';
+
+const difficultyText = gameState.mode === 'practice'
+? (practiceRanges[gameState.practiceRange]?.name || '')
+: (difficultyNames[gameState.difficulty] || '');
+
+const totalQuestions = gameState.questions.length;
+const accuracy = totalQuestions > 0 ? Math.round((gameState.score / totalQuestions) * 100) : 0;
+
+const timeMinutes = Math.floor(gameState.elapsedTime / 60);
+const timeSeconds = gameState.elapsedTime % 60;
+
+return `玩家：${gameState.playerName}
+
+我在95數背數遊戲中${modeText}（${difficultyText}）獲得${gameState.score}/${totalQuestions}分！
+
+正確率：${accuracy}%
+
+用時：${timeMinutes}分${timeSeconds}秒
+
+完成時間：${completionTime}
+
+快來挑戰你的心算能力！`;
 }
 
-// 分享截圖
-function shareScreenshot() {
-if (!currentScreenshot) {
-alert('請先生成截圖');
-return;
-}
-  
+// 分享到微信
+function shareToWechat() {
 playSound('button');
-  
-try {
-// 將base64圖片轉換為blob
-fetch(currentScreenshot)
-.then(res => res.blob())
-.then(blob => {
-const file = new File([blob], `95數背數成績_${gameState.playerName}.png`, { type: 'image/png' });
-  
-// 檢查是否支持Web Share API（適用於大部分現代手機瀏覽器）
-if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-navigator.share({
-files: [file],
-title: '95數背數遊戲成績單',
-text: `我在95數背數遊戲中獲得${gameState.score}/${gameState.questions.length}分！正確率：${Math.round((gameState.score / gameState.questions.length) * 100)}%！快來挑戰你的心算能力！`
-})
-.then(() => console.log('分享成功'))
-.catch(error => {
-console.log('分享失敗:', error);
-alert('分享失敗，請嘗試保存圖片後手動分享');
-});
+
+// 填充分享信息
+const shareScoreElement = document.getElementById('share-score');
+const shareTotalElement = document.getElementById('share-total');
+const shareAccuracyElement = document.getElementById('share-accuracy');
+const shareTextElement = document.getElementById('share-text');
+const wxInstructionsElement = document.getElementById('wx-instructions');
+const shareModalElement = document.getElementById('share-modal');
+
+if (shareScoreElement) shareScoreElement.textContent = gameState.score;
+if (shareTotalElement) shareTotalElement.textContent = gameState.questions.length;
+
+const totalQuestions = gameState.questions.length;
+const accuracy = totalQuestions > 0 ? Math.round((gameState.score / totalQuestions) * 100) : 0;
+if (shareAccuracyElement) shareAccuracyElement.textContent = accuracy;
+
+const shareText = generateShareText();
+if (shareTextElement) shareTextElement.textContent = shareText;
+
+// 檢測微信環境
+function isWechat() {
+return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
+}
+
+if (wxInstructionsElement) {
+if (isWechat()) {
+wxInstructionsElement.style.display = 'block';
 } else {
-// 如果不支持Web Share API，則提示用戶手動保存後分享
-alert('請先保存圖片到相冊，然後在相冊中分享到社交軟件。');
+wxInstructionsElement.style.display = 'none';
 }
-})
-.catch(error => {
-console.error('分享失敗:', error);
-alert('分享失敗，請先保存圖片到相冊');
+}
+
+// 顯示分享模態框
+if (shareModalElement) shareModalElement.style.display = 'flex';
+}
+
+// 複製分享內容
+function copyShareText() {
+const shareTextElement = document.getElementById('share-text');
+if (!shareTextElement) return;
+
+const shareText = shareTextElement.textContent;
+
+navigator.clipboard.writeText(shareText).then(() => {
+playSound('correct');
+alert('分享內容已複製到剪貼板！');
+}).catch(err => {
+console.error('複製失敗:', err);
+// 備用複製方法
+const textArea = document.createElement('textarea');
+textArea.value = shareText;
+document.body.appendChild(textArea);
+textArea.select();
+document.execCommand('copy');
+document.body.removeChild(textArea);
+playSound('correct');
+alert('分享內容已複製到剪貼板！');
 });
-} catch (error) {
-console.error('分享錯誤:', error);
-alert('分享失敗，請先保存圖片到相冊');
-}
 }
 
-// 綁定截圖分享按鈕
-document.getElementById('share-btn')?.addEventListener('click', generateScreenshot);
-
-// 綁定保存截圖按鈕
-document.getElementById('save-screenshot-btn')?.addEventListener('click', saveScreenshot);
-
-// 綁定分享截圖按鈕
-document.getElementById('share-screenshot-btn')?.addEventListener('click', shareScreenshot);
-
-// 關閉截圖模態框
-document.getElementById('close-screenshot-modal')?.addEventListener('click', function() {
-const screenshotModal = document.getElementById('screenshot-modal');
-if (screenshotModal) screenshotModal.style.display = 'none';
+// 關閉模態框
+document.getElementById('close-modal')?.addEventListener('click', function() {
+const shareModalElement = document.getElementById('share-modal');
+if (shareModalElement) shareModalElement.style.display = 'none';
 });
+
+// 綁定分享按鈕
+document.getElementById('share-btn')?.addEventListener('click', shareToWechat);
+
+// 綁定複製按鈕
+document.getElementById('copy-btn')?.addEventListener('click', copyShareText);
 
 // 輸入框事件監聽
 const answerInput = document.getElementById('answer-input');
@@ -2969,3 +2738,6 @@ console.log('95數背數遊戲初始化完成！');
 </script>
 </body>
 </html>
+
+
+
