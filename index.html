@@ -1539,7 +1539,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <!-- 新增的終極挑戰選項 -->
 <div class="difficulty-option ultimate-challenge" data-difficulty="ultimate">
 <h3><i class="fas fa-crown"></i> 終極挑戰（三位數）</h3>
-<p>8秒/題 · 30題 · 高手挑戰</p>
+<p>8秒/題 · 30題 · 百位2,4,6,8 · 十位個位為0 · 高手挑戰</p>
 </div>
 </div>
 </div>
@@ -1688,7 +1688,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 </button>
 
 <button class="share-btn" id="share-btn">
-<i class="fas fa-camera"></i> 截圖分享成績
+<i class="fas fa-camera"></i> 截圖保存成績
 </button>
 </div>
 </div>
@@ -1697,7 +1697,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <!-- 截圖分享模態框 -->
 <div class="modal" id="screenshot-modal">
 <div class="modal-content">
-<h3><i class="fas fa-camera"></i> 截圖分享成績</h3>
+<h3><i class="fas fa-camera"></i> 截圖保存成績</h3>
 
 <div class="screenshot-loading" id="screenshot-loading">
 <i class="fas fa-spinner"></i>
@@ -1712,9 +1712,9 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <h4><i class="fas fa-info-circle"></i> 截圖使用說明</h4>
 <ol>
 <li>點擊"保存截圖"將圖片保存到手機相冊</li>
-<li>點擊"分享截圖"直接分享到社交軟件</li>
-<li>在微信、WhatsApp、LINE等應用中發送圖片</li>
-<li>也可以分享到朋友圈或Facebook</li>
+<li>在微信中，長按圖片選擇"保存到手機"</li>
+<li>在相冊中找到圖片後分享到社交平台</li>
+<li>圖片文件名：95數背數成績_您的暱稱.png</li>
 </ol>
 </div>
 
@@ -2031,7 +2031,7 @@ gameState.questionType = 'standard';
 break;
 case 'ultimate': // 新增終極挑戰
 gameState.totalQuestions = 30;
-gameState.challengeTimeLeft = 8;
+gameState.challengeTimeLeft = 8; // 修改為8秒
 gameState.questionType = 'ultimate';
 break;
 }
@@ -2242,7 +2242,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 8; break;
+case 'ultimate': gameState.challengeTimeLeft = 8; break; // 修改為8秒
 }
 startChallengeTimer();
 }
@@ -2271,7 +2271,7 @@ if (gameState.mode === 'challenge') {
 const questionTime = gameState.challengeTimeLeft > 0 ?
 (gameState.difficulty === 'basic' ? 10 : 
  gameState.difficulty === 'advanced' ? 7 : 
- gameState.difficulty === 'expert' ? 5 : 8) - gameState.challengeTimeLeft : 1;
+ gameState.difficulty === 'expert' ? 5 : 8) - gameState.challengeTimeLeft : 1; // 修改為8秒
 gameState.challengeTimes.push(questionTime);
 }
 
@@ -2345,7 +2345,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 8; break;
+case 'ultimate': gameState.challengeTimeLeft = 8; break; // 修改為8秒
 }
 startChallengeTimer();
 }
@@ -2640,13 +2640,6 @@ console.error('結果頁面未找到');
 return;
 }
   
-// 獲取結果內容區域，排除按鈕部分
-const resultContent = resultScreen.querySelector('.result-content');
-if (!resultContent) {
-console.error('結果內容區域未找到');
-return;
-}
-  
 // 創建一個臨時容器用於截圖
 const tempContainer = document.createElement('div');
 tempContainer.style.position = 'fixed';
@@ -2661,6 +2654,12 @@ tempContainer.style.maxWidth = '90vw';
 tempContainer.style.margin = '0 auto';
   
 // 複製結果內容到臨時容器
+const resultContent = resultScreen.querySelector('.result-content');
+if (!resultContent) {
+console.error('結果內容區域未找到');
+return;
+}
+  
 const contentClone = resultContent.cloneNode(true);
   
 // 添加標題和裝飾
@@ -2719,6 +2718,11 @@ screenshotContainer.style.display = 'block';
 screenshotButtons.style.display = 'flex';
 };
   
+// 自動觸發保存
+setTimeout(() => {
+saveScreenshot();
+}, 500);
+  
 // 清理臨時元素
 document.body.removeChild(tempContainer);
 }).catch(error => {
@@ -2730,11 +2734,12 @@ screenshotLoading.innerHTML = `
   
 setTimeout(() => {
 screenshotModal.style.display = 'none';
+alert('截圖生成失敗，請稍後重試');
 }, 2000);
 });
 }
 
-// 保存截圖到手機
+// 保存截圖到手機相冊
 function saveScreenshot() {
 if (!currentScreenshot) {
 alert('請先生成截圖');
@@ -2743,17 +2748,45 @@ return;
   
 playSound('button');
   
+try {
 // 創建一個臨時的a標籤來下載圖片
 const link = document.createElement('a');
 link.href = currentScreenshot;
-link.download = `95數背數成績_${gameState.playerName}_${Date.now()}.png`;
+  
+// 生成文件名
+const fileName = `95數背數成績_${gameState.playerName}_${Date.now()}.png`;
+link.download = fileName;
+  
 link.style.display = 'none';
 document.body.appendChild(link);
+  
+// 觸發點擊下載
 link.click();
+  
+// 清理
+setTimeout(() => {
 document.body.removeChild(link);
   
 // 顯示成功提示
-alert('截圖已保存到手機相冊！');
+const successMessage = `截圖已保存到手機相冊！
+  
+文件名：${fileName}
+  
+您可以在相冊中找到並分享此圖片。`;
+alert(successMessage);
+  
+// 關閉模態框
+const screenshotModal = document.getElementById('screenshot-modal');
+if (screenshotModal) screenshotModal.style.display = 'none';
+}, 100);
+  
+} catch (error) {
+console.error('保存截圖失敗:', error);
+  
+// 備用方法：提供圖片URL讓用戶手動保存
+const fallbackMessage = `截圖已生成！請長按下方圖片，選擇「保存圖片」到手機相冊。`;
+alert(fallbackMessage);
+}
 }
 
 // 分享截圖
@@ -2765,6 +2798,7 @@ return;
   
 playSound('button');
   
+try {
 // 將base64圖片轉換為blob
 fetch(currentScreenshot)
 .then(res => res.blob())
@@ -2776,19 +2810,26 @@ if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] 
 navigator.share({
 files: [file],
 title: '95數背數遊戲成績單',
-text: `我在95數背數遊戲中獲得${gameState.score}/${gameState.questions.length}分！快來挑戰你的心算能力！`
+text: `我在95數背數遊戲中獲得${gameState.score}/${gameState.questions.length}分！正確率：${Math.round((gameState.score / gameState.questions.length) * 100)}%！快來挑戰你的心算能力！`
 })
 .then(() => console.log('分享成功'))
-.catch(error => console.log('分享失敗:', error));
+.catch(error => {
+console.log('分享失敗:', error);
+alert('分享失敗，請嘗試保存圖片後手動分享');
+});
 } else {
-// 如果不支持Web Share API，則提示用戶手動分享
-alert('截圖已生成！請使用手機的圖片分享功能分享到社交軟件。');
+// 如果不支持Web Share API，則提示用戶手動保存後分享
+alert('請先保存圖片到相冊，然後在相冊中分享到社交軟件。');
 }
 })
 .catch(error => {
 console.error('分享失敗:', error);
-alert('分享失敗，請重試');
+alert('分享失敗，請先保存圖片到相冊');
 });
+} catch (error) {
+console.error('分享錯誤:', error);
+alert('分享失敗，請先保存圖片到相冊');
+}
 }
 
 // 綁定截圖分享按鈕
