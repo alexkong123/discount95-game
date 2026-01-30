@@ -1424,7 +1424,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <!-- 新增的終極挑戰選項 -->
 <div class="difficulty-option ultimate-challenge" data-difficulty="ultimate">
 <h3><i class="fas fa-crown"></i> 終極挑戰（三位數）</h3>
-<p>6秒/題 · 30題 · 百位雙數 · 高手挑戰</p>
+<p>6秒/題 · 30題 · 百位2,4,6,8 · 十位個位為0 · 高手挑戰</p>
 </div>
 </div>
 </div>
@@ -1948,14 +1948,17 @@ gameState.totalQuestions = Math.min(18, allNumbers.length);
 } else {
 // 挑戰模式
 if (gameState.questionType === 'ultimate') {
-// 終極挑戰：生成10200-99800之間，百位為雙數，十位個位為0的數字
-for (let num = 10200; num <= 99800; num += 100) {
-// 獲取百位數字（例如：12300的百位是3）
-const hundredsDigit = Math.floor((num % 1000) / 100);
-        
-// 檢查百位是否為雙數且十位個位為0
-if (hundredsDigit % 2 === 0 && num % 100 === 0) {
+// 終極挑戰：生成10200-99800之間，百位為2,4,6,8，十位個位為0的數字
+const allowedHundredsDigits = [2, 4, 6, 8]; // 只允許這些百位數字
+      
+// 生成所有可能的千位數（10000-99000，以1000為間隔）
+for (let baseNum = 10000; baseNum <= 99000; baseNum += 1000) {
+// 對每個允許的百位數字生成數字
+for (let hundredsDigit of allowedHundredsDigits) {
+const num = baseNum + (hundredsDigit * 100); // 例如：10000 + (2*100) = 10200
+if (num <= 99800) {
 allNumbers.push(num);
+}
 }
 }
       
