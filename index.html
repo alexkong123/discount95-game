@@ -2,8 +2,6 @@
 <html lang="zh-TW">
 
 <head>
-<!-- 在 <head> 標籤內的最前面添加 -->
-<meta name="verify-admitad" content="a349e31de6c2888ac5bfb4b1e3fb203338b3624f" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>95數背數小游戲 - 練習模式優化版</title>
@@ -66,7 +64,7 @@ margin-bottom: 5px;
 
 .subtitle {
 font-size: 0.9rem;
-color: #7fcd;
+color: #7f8c8d;
 margin-bottom: 10px;
 }
 
@@ -84,11 +82,11 @@ display: flex;
 }
 
 .btn {
-background: linear-gradient(45deg, #349db, #290b9);
+background: linear-gradient(45deg, #3498db, #2980b9);
 border: none;
 color: white;
 padding: 12px 20px;
-margin: px;
+margin: 8px;
 border-radius: 50px;
 font-size: 1rem;
 font-weight: 600;
@@ -138,10 +136,10 @@ font-family: 'Arial', sans-serif;
 
 .answer-input {
 width: 90%;
-padding: 1px;
-font-size: 1.rem;
+padding: 18px;
+font-size: 1.8rem;
 text-align: center;
-background: #ff9fa;
+background: #f8f9fa;
 border: 2px solid #e0e0e0;
 border-radius: 15px;
 color: #2c3e50;
@@ -153,7 +151,7 @@ min-height: 60px;
 }
 
 .answer-input:focus {
-border-color: #349db;
+border-color: #3498db;
 box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
@@ -166,8 +164,8 @@ padding: 0 15px;
 }
 
 .key {
-padding: 1px 5px;
-font-size: 1.rem;
+padding: 18px 5px;
+font-size: 1.8rem;
 background: #2c3e50;
 border: none;
 border-radius: 15px;
@@ -177,7 +175,7 @@ transition: all 0.2s;
 display: flex;
 justify-content: center;
 align-items: center;
-box-shadow: 0 4px px rgba(0, 0, 0, 0.1);
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 min-height: 60px;
 }
 
@@ -204,7 +202,7 @@ margin: 10px 0;
 .progress-text {
 font-size: 1rem;
 margin-bottom: 6px;
-color: #7fcd;
+color: #7f8c8d;
 }
 
 .progress-bar {
@@ -217,13 +215,13 @@ overflow: hidden;
 
 .progress-fill {
 height: 100%;
-background: linear-gradient(to right, #349db, #2ecc71);
+background: linear-gradient(to right, #3498db, #2ecc71);
 border-radius: 5px;
 transition: width 0.5s ease;
 }
 
 .result-item {
-background: #ff9fa;
+background: #f8f9fa;
 padding: 12px;
 border-radius: 12px;
 margin: 10px 0;
@@ -252,20 +250,20 @@ margin-top: 15px;
 display: inline-flex;
 align-items: center;
 justify-content: center;
-gap: px;
+gap: 8px;
 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 width: 90%;
 max-width: 300px;
 }
 
 .timer {
-font-size: 0.5rem;
+font-size: 0.85rem;
 margin: 6px 0;
 display: flex;
 align-items: center;
 justify-content: center;
 gap: 6px;
-color: #7fcd;
+color: #7f8c8d;
 }
 
 .feature-badge {
@@ -275,7 +273,7 @@ color: #00796b;
 padding: 4px 12px;
 border-radius: 20px;
 margin: 4px;
-font-size: 0.rem;
+font-size: 0.8rem;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -285,7 +283,7 @@ padding: 12px;
 border-radius: 15px;
 margin: 12px 0;
 text-align: left;
-font-size: 0.5rem;
+font-size: 0.85rem;
 color: #1a237e;
 }
 
@@ -295,7 +293,7 @@ color: #0d47a1;
 font-size: 1rem;
 display: flex;
 align-items: center;
-gap: px;
+gap: 8px;
 }
 
 .sound-toggle {
@@ -333,14 +331,14 @@ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 .wx-tip {
 background: #e1f5fe;
 border-radius: 10px;
-padding: px 12px;
-font-size: 0.rem;
+padding: 8px 12px;
+font-size: 0.8rem;
 color: #0277bd;
 margin-top: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
-gap: px;
+gap: 8px;
 }
 
 .sound-status {
@@ -773,7 +771,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 
 /* 調整紅色數字（題目數字） - 已縮小 */
 .incorrect-grid-number {
-font-size: 2rem; /* 從 2.5rem 縮小 */
+font-size: 2.2rem; /* 從 2.5rem 縮小 */
 font-weight: bold;
 color: #e74c3c;
 margin-bottom: 4px;
@@ -1109,7 +1107,7 @@ margin-bottom: 6px !important;
 
 /* 錯誤記錄優化 - 已調整紅色數字 */
 .incorrect-grid-container {
-margin: 7px 0 5px 0;
+margin: 8px 0 5px 0;
 min-height: 160px;
 }
 
@@ -1426,7 +1424,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <!-- 新增的終極挑戰選項 -->
 <div class="difficulty-option ultimate-challenge" data-difficulty="ultimate">
 <h3><i class="fas fa-crown"></i> 終極挑戰（三位數）</h3>
-<p>5秒/題 · 30題 · 高手挑戰</p>
+<p>6秒/題 · 30題 · 百位雙數 · 高手挑戰</p>
 </div>
 </div>
 </div>
@@ -1920,7 +1918,7 @@ gameState.questionType = 'standard';
 break;
 case 'ultimate': // 新增終極挑戰
 gameState.totalQuestions = 30;
-gameState.challengeTimeLeft = 5;
+gameState.challengeTimeLeft = 6;
 gameState.questionType = 'ultimate';
 break;
 }
@@ -1950,17 +1948,14 @@ gameState.totalQuestions = Math.min(18, allNumbers.length);
 } else {
 // 挑戰模式
 if (gameState.questionType === 'ultimate') {
-// 終極挑戰：生成10200-99800之間，百位為2,4,6,8，十位個位為0的數字
-const allowedHundredsDigits = [2, 4, 6, 8]; // 只允許這些百位數字
-      
-// 生成所有可能的千位數（10000-99000，以1000為間隔）
-for (let baseNum = 10000; baseNum <= 99000; baseNum += 1000) {
-// 對每個允許的百位數字生成數字
-for (let hundredsDigit of allowedHundredsDigits) {
-const num = baseNum + (hundredsDigit * 100); // 例如：10000 + (2*100) = 10200
-if (num <= 99800) {
+// 終極挑戰：生成10200-99800之間，百位為雙數，十位個位為0的數字
+for (let num = 10200; num <= 99800; num += 100) {
+// 獲取百位數字（例如：12300的百位是3）
+const hundredsDigit = Math.floor((num % 1000) / 100);
+        
+// 檢查百位是否為雙數且十位個位為0
+if (hundredsDigit % 2 === 0 && num % 100 === 0) {
 allNumbers.push(num);
-}
 }
 }
       
@@ -2131,7 +2126,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 5; break;
+case 'ultimate': gameState.challengeTimeLeft = 6; break;
 }
 startChallengeTimer();
 }
@@ -2160,7 +2155,7 @@ if (gameState.mode === 'challenge') {
 const questionTime = gameState.challengeTimeLeft > 0 ?
 (gameState.difficulty === 'basic' ? 10 : 
  gameState.difficulty === 'advanced' ? 7 : 
- gameState.difficulty === 'expert' ? 5 : 5) - gameState.challengeTimeLeft : 1;
+ gameState.difficulty === 'expert' ? 5 : 6) - gameState.challengeTimeLeft : 1;
 gameState.challengeTimes.push(questionTime);
 }
 
@@ -2234,7 +2229,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 5; break;
+case 'ultimate': gameState.challengeTimeLeft = 6; break;
 }
 startChallengeTimer();
 }
@@ -2740,10 +2735,3 @@ console.log('95數背數遊戲初始化完成！');
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
