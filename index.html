@@ -1426,7 +1426,7 @@ placeholder="請輸入暱稱 (2-10個字符)" maxlength="10">
 <!-- 新增的終極挑戰選項 -->
 <div class="difficulty-option ultimate-challenge" data-difficulty="ultimate">
 <h3><i class="fas fa-crown"></i> 終極挑戰（三位數）</h3>
-<p>8秒/題 · 30題 · 高手挑戰</p>
+<p>5秒/題 · 30題 · 高手挑戰</p>
 </div>
 </div>
 </div>
@@ -1920,7 +1920,7 @@ gameState.questionType = 'standard';
 break;
 case 'ultimate': // 新增終極挑戰
 gameState.totalQuestions = 30;
-gameState.challengeTimeLeft = 8;
+gameState.challengeTimeLeft = 5;
 gameState.questionType = 'ultimate';
 break;
 }
@@ -2131,7 +2131,7 @@ switch(gameState.difficulty) {
 case 'basic': gameState.challengeTimeLeft = 10; break;
 case 'advanced': gameState.challengeTimeLeft = 7; break;
 case 'expert': gameState.challengeTimeLeft = 5; break;
-case 'ultimate': gameState.challengeTimeLeft = 8; break;
+case 'ultimate': gameState.challengeTimeLeft = 5; break;
 }
 startChallengeTimer();
 }
@@ -2740,6 +2740,7 @@ console.log('95數背數遊戲初始化完成！');
 </script>
 </body>
 </html>
+
 
 
 
